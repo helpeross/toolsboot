@@ -8,7 +8,7 @@
   <p id="search-empty" class="hidden text-sm text-slate-400 dark:text-zinc-500 py-8 text-center">{{ i18n "search_empty" }}</p>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    {{- range hugo.Data.tools }}
+    {{- range .Site.Data.tools }}
       {{ partial "tool-card.html" . }}
     {{- end }}
   </div>

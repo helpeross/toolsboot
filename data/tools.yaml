@@ -1,0 +1,131 @@
+# Tools directory. `slug` is used for /tools/<slug>/ URLs and the widget partial name.
+# `category` drives the top navigation filter on the home and /tools pages.
+# Categories: Formatters | Encoders | Generators | Converters | Scanners
+
+- name: JSON Formatter
+  name_zh: JSON 格式化
+  slug: json-formatter
+  icon: "{ }"
+  category: Formatters
+  desc: "Pretty-print, validate, and minify JSON in one click. Great for reading API responses."
+  desc_zh: "一键美化、校验、压缩 JSON，适合阅读 API 返回内容。"
+
+- name: Base64 Encoder / Decoder
+  name_zh: Base64 编码/解码
+  slug: base64-encoder
+  icon: "64"
+  category: Encoders
+  desc: "Encode and decode text to and from Base64 for auth headers, tokens, and payloads."
+  desc_zh: "文本与 Base64 互转，适用于认证头、令牌与数据载荷。"
+
+- name: URL Encoder / Decoder
+  name_zh: URL 编码/解码
+  slug: url-encoder
+  icon: "&#8594;"
+  category: Encoders
+  desc: "Percent-encode or decode URLs and query strings with safe character handling."
+  desc_zh: "安全处理 URL 与查询字符串的百分号编码与解码。"
+
+- name: UUID Generator
+  name_zh: UUID 生成器
+  slug: uuid-generator
+  icon: "v4"
+  category: Generators
+  desc: "Generate random UUIDs (v4) in bulk for keys, names, and database identifiers."
+  desc_zh: "批量生成随机 UUID（v4），用于键、名称与数据库标识。"
+
+- name: MD5 Hash Generator
+  name_zh: MD5 哈希生成器
+  slug: md5-generator
+  icon: "#"
+  category: Generators
+  desc: "Compute MD5 hashes of text or hex strings instantly for quick checks."
+  desc_zh: "快速计算文本或十六进制字符串的 MD5 哈希。"
+
+- name: SHA256 Hash Generator
+  name_zh: SHA256 哈希生成器
+  slug: sha256-generator
+  icon: "SHA"
+  category: Generators
+  desc: "Generate SHA-256 hashes for integrity checks and simple fingerprints."
+  desc_zh: "生成 SHA-256 哈希，用于完整性校验与简单指纹。"
+
+- name: Random Password Generator
+  name_zh: 随机密码生成器
+  slug: password-generator
+  icon: "&#9919;"
+  category: Generators
+  desc: "Create strong, customizable passwords with letters, digits, and symbols."
+  desc_zh: "使用字母、数字与符号生成强大、可自定义的密码。"
+
+- name: Timestamp Converter
+  name_zh: 时间戳转换器
+  slug: timestamp-converter
+  icon: "T"
+  category: Converters
+  desc: "Convert between Unix timestamps and human-readable dates in both directions."
+  desc_zh: "Unix 时间戳与可读日期双向转换。"
+
+- name: JSON to YAML Converter
+  name_zh: JSON 转 YAML
+  slug: json-to-yaml
+  icon: "YML"
+  category: Converters
+  desc: "Turn JSON into clean, readable YAML for config files and workflows."
+  desc_zh: "将 JSON 转换为整洁易读的 YAML，用于配置文件。"
+
+- name: CSS Minifier
+  name_zh: CSS 压缩器
+  slug: css-minifier
+  icon: "{}"
+  category: Formatters
+  desc: "Strip whitespace and comments from CSS for smaller, faster stylesheets."
+  desc_zh: "去除 CSS 中的空白与注释，获得更小更快的样式表。"
+
+- name: HTML Entity Encoder
+  name_zh: HTML 实体编码器
+  slug: html-entity-encoder
+  icon: "&amp;"
+  category: Encoders
+  desc: "Escape or unescape HTML entities to safely embed text in markup."
+  desc_zh: "转义或反转义 HTML 实体，安全嵌入文本。"
+
+- name: Language Cipher
+  name_zh: 语言加密
+  slug: language-cipher
+  icon: "Aa"
+  category: Encoders
+  desc: "Encrypt text into Chinese, English letters or other scripts, with an optional secret key."
+  desc_zh: "将文本加密为汉字、英文字母或其他文字，可设置密钥。"
+
+- name: Number Base Converter
+  name_zh: 进制转换器
+  slug: number-base-converter
+  icon: "2&rarr;16"
+  category: Converters
+  desc: "Convert numbers between binary, octal, decimal, and hexadecimal."
+  desc_zh: "在二进制、八进制、十进制与十六进制之间转换数字。"
+
+- name: Text Diff
+  name_zh: 文本对比
+  slug: text-diff
+  icon: "A|B"
+  category: Formatters
+  desc: "Compare two texts side by side and spot added, removed and changed lines instantly."
+  desc_zh: "并排比较两段文本，快速找出新增、删除与修改的行。"
+
+- name: QR Code Generator
+  name_zh: 二维码生成器
+  slug: qrcode-generator
+  icon: "QR"
+  category: Generators
+  desc: "Turn any text or URL into a QR code with custom size, colors and error correction."
+  desc_zh: "将任意文本或网址生成二维码，支持自定义尺寸、颜色与容错级别。"
+
+- name: QR Code Scanner
+  name_zh: 二维码扫描器
+  slug: qrcode-scanner
+  icon: "SC"
+  category: Scanners
+  desc: "Decode QR codes from images - paste, drag & drop or select multiple pictures."
+  desc_zh: "从图片中解码二维码——支持粘贴、拖放或选择多张图片。"

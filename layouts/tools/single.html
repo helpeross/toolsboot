@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article class="max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-10">
+  <nav class="flex items-center gap-2 text-sm text-slate-400 dark:text-zinc-500 mb-4" aria-label="Breadcrumb">
+    <a href="{{ "/" | relLangURL }}" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ i18n "nav_home" }}</a>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    <a href="{{ "/tools/" | relLangURL }}" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ i18n "nav_tools" }}</a>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    <span class="text-slate-700 dark:text-zinc-300 font-medium">{{ .Title }}</span>
+  </nav>
+
+  <div class="flex flex-col md:flex-row md:items-baseline md:gap-x-8">
+    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white md:shrink-0">{{ .Title }}</h1>
+    {{ with .Params.tagline | default .Description }}<p class="mt-1 md:mt-0 text-base text-slate-500 dark:text-zinc-400 leading-relaxed md:flex-1">{{ . }}</p>{{ end }}
+  </div>
+
+  {{ if .Params.widget }}
+    {{ partial (printf "tools/%s.html" .Params.widget) . }}
+  {{ end }}
+
+  <div class="mt-10 max-w-4xl prose prose-slate dark:prose-invert text-slate-600 dark:text-zinc-400 leading-relaxed prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-brand-600 dark:prose-a:text-brand-400">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

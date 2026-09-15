@@ -1,0 +1,11 @@
+﻿# Hugo binary (use Cloudflare Pages built-in Hugo)
+hugo.exe
+.hugo_build.lock
+
+# Hugo build output and cache
+/public/
+/resources/
+
+# OS files
+.DS_Store
+Thumbs.db

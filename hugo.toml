@@ -1,0 +1,39 @@
+# ==============================================================================
+# toolsboot.com - Hugo configuration
+# Multi-language (en / zh-CN), English is primary and default.
+# Traditional Chinese is intentionally not offered (auto-switched to English).
+# Cloudflare Pages build command: hugo   |   Output directory: public
+# ==============================================================================
+
+baseURL = "https://toolsboot.com"
+locale = "en-US"
+title = "ToolsBoot"
+
+# Default language (English). All content lives under content/<lang>/.
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+# Language definitions live in config/_default/languages.toml.
+
+# -------------------------------------------------------------------------- SEO
+enableRobotsTXT = false          # we ship our own static/robots.txt
+enableGitInfo = false
+disableKinds = ["taxonomy", "term", "RSS"]
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[imaging]
+  resampleFilter = "box"
+  quality = 82
+
+publishDir = "public"
+
+# --------------------------------------------------------- global params
+[params]
+  brand = "ToolsBoot"
+  tagline = "Free online developer tools"
+  # Structured-data default creator (overridable per language)
+  author = "ToolsBoot"

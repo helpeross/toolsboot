@@ -1,0 +1,157 @@
+﻿{{- $zh := eq site.Language.Lang "zh-cn" }}
+<div class="mt-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/20 overflow-hidden transition-colors duration-200" id="uuid-tool">
+  <!-- Tool header -->
+  <div class="border-b border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">v4</span>
+      <span class="text-sm font-semibold text-slate-800 dark:text-zinc-200">{{ if $zh }}UUID 生成器{{ else }}UUID Generator{{ end }}</span>
+      <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}交互工具{{ else }}Interactive Tool{{ end }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="uuid-layout" type="button" title="{{ if $zh }}切换布局{{ else }}Toggle layout{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="uuid-layout-stack" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14v6H5z M5 14h14v6H5z"/></svg>
+        <svg id="uuid-layout-col" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h6v16H5z M13 4h6v16h-6z"/></svg>
+      </button>
+      <button id="uuid-fullscreen" type="button" title="{{ if $zh }}切换全屏{{ else }}Toggle fullscreen{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="uuid-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/></svg>
+        <svg id="uuid-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4v4H4M16 4v4h4M8 20v-4H4M16 20v-4h4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Panel container -->
+  <div id="uuid-panels" class="flex flex-col lg:flex-row lg:items-start">
+    <!-- Left: controls -->
+    <div id="uuid-left" class="flex flex-col lg:flex-1 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-zinc-800">
+      <!-- Actions -->
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <button id="uuid-generate" type="button" title="{{ if $zh }}生成新的 UUID{{ else }}Generate new UUIDs{{ end }}"
+                class="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 dark:bg-brand-600 dark:hover:bg-brand-500 px-4 py-1.5 rounded-lg transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          {{ if $zh }}生成{{ else }}Generate{{ end }}
+        </button>
+      </div>
+
+      <!-- Version -->
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-slate-100 dark:border-zinc-800">
+        <label class="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-zinc-400 cursor-pointer select-none">
+          {{ if $zh }}UUID 版本{{ else }}UUID version{{ end }}
+          <select id="uuid-version"
+                  class="text-xs font-medium text-slate-600 dark:text-zinc-300 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-md px-2 py-1.5 outline-none cursor-pointer">
+            <option value="v4">v4 - {{ if $zh }}随机（最常用）{{ else }}Random (most common){{ end }}</option>
+            <option value="v1">v1 - {{ if $zh }}基于时间{{ else }}Time-based{{ end }}</option>
+            <option value="v6">v6 - {{ if $zh }}时间有序{{ else }}Time-ordered{{ end }}</option>
+            <option value="v7">v7 - {{ if $zh }}时间戳（最新）{{ else }}Timestamp (newest){{ end }}</option>
+            <option value="v3">v3 - MD5 {{ if $zh }}命名空间{{ else }}namespace{{ end }}</option>
+            <option value="v5">v5 - SHA-1 {{ if $zh }}命名空间{{ else }}namespace{{ end }}</option>
+          </select>
+        </label>
+        <span id="uuid-ns-wrap" class="hidden items-center gap-x-4 gap-y-2 flex-wrap w-full">
+          <label class="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-zinc-400 cursor-pointer select-none">
+            {{ if $zh }}命名空间{{ else }}Namespace{{ end }}
+            <input id="uuid-namespace" type="text" spellcheck="false" value="6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+                   class="w-52 text-xs font-normal text-slate-700 dark:text-zinc-200 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-md px-2 py-1.5 outline-none font-mono">
+          </label>
+          <label class="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-zinc-400 cursor-pointer select-none">
+            {{ if $zh }}名称{{ else }}Name{{ end }}
+            <input id="uuid-name" type="text" spellcheck="false" value="example.com"
+                   class="w-36 text-xs font-normal text-slate-700 dark:text-zinc-200 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-md px-2 py-1.5 outline-none">
+          </label>
+        </span>
+      </div>
+
+      <!-- Count -->
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-slate-100 dark:border-zinc-800">
+        <label class="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-zinc-400 cursor-pointer select-none">
+          {{ if $zh }}数量{{ else }}Count{{ end }}
+          <input id="uuid-count" type="number" min="1" max="5000" value="5"
+                 class="w-16 text-sm font-normal text-slate-700 dark:text-zinc-200 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-md px-2 py-1 outline-none">
+        </label>
+        <input id="uuid-count-range" type="range" min="1" max="1000" value="5"
+               class="flex-1 min-w-[160px] max-w-[280px] accent-brand-500 cursor-pointer">
+        <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}滑块 1–1000，输入框最多 5000{{ else }}Slider 1–1000, type up to 5000{{ end }}</span>
+      </div>
+
+      <!-- Output format -->
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-slate-100 dark:border-zinc-800">
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-1">{{ if $zh }}大小写{{ else }}Case{{ end }}</span>
+          <button type="button" class="jt-mode active" data-case="lower">{{ if $zh }}小写{{ else }}Lower{{ end }}</button>
+          <button type="button" class="jt-mode" data-case="upper">{{ if $zh }}大写{{ else }}Upper{{ end }}</button>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-1">{{ if $zh }}连字符{{ else }}Hyphens{{ end }}</span>
+          <button type="button" class="jt-mode active" data-hyphen="keep">{{ if $zh }}保留{{ else }}Keep{{ end }}</button>
+          <button type="button" class="jt-mode" data-hyphen="remove">{{ if $zh }}去除{{ else }}Remove{{ end }}</button>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-1">{{ if $zh }}包裹{{ else }}Wrap{{ end }}</span>
+          <button type="button" class="jt-mode active" data-wrap="plain">{{ if $zh }}纯文本{{ else }}Plain{{ end }}</button>
+          <button type="button" class="jt-mode" data-wrap="braces">{{ if $zh }}花括号{{ else }}Braces{{ end }}</button>
+          <button type="button" class="jt-mode" data-wrap="urn">URN</button>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-1">{{ if $zh }}布局{{ else }}Layout{{ end }}</span>
+          <button type="button" class="jt-mode active" data-layout="lines">{{ if $zh }}每行一个{{ else }}Lines{{ end }}</button>
+          <button type="button" class="jt-mode" data-layout="comma">{{ if $zh }}逗号分隔{{ else }}Comma{{ end }}</button>
+          <button type="button" class="jt-mode" data-layout="json">JSON</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resizer (desktop only) -->
+    <div id="uuid-resizer" role="separator" aria-label="{{ if $zh }}拖动调整面板宽度{{ else }}Drag to resize panels{{ end }}" class="hidden lg:flex self-stretch group w-2.5 cursor-col-resize items-center justify-center transition-colors" style="touch-action:none;">
+      <span class="flex flex-col gap-1.5" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+      </span>
+    </div>
+
+    <!-- Right: output + validator -->
+    <div id="uuid-right" class="flex flex-col lg:flex-[1.4] min-h-0">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}输出{{ else }}Output{{ end }}</span>
+        <div class="flex items-center gap-1.5">
+          <button id="uuid-dl-txt" type="button" title="{{ if $zh }}下载为 TXT{{ else }}Download output as TXT{{ end }}"
+                  class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 px-2.5 py-1.5 rounded-lg transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4"/></svg>
+            TXT
+          </button>
+          <button id="uuid-dl-csv" type="button" title="{{ if $zh }}下载为 CSV{{ else }}Download output as CSV{{ end }}"
+                  class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 px-2.5 py-1.5 rounded-lg transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4"/></svg>
+            CSV
+          </button>
+          <button id="uuid-copy" type="button" class="jt-icon-btn" title="{{ if $zh }}全部复制{{ else }}Copy all{{ end }}">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+          <button id="uuid-clear" type="button" class="jt-icon-btn" title="{{ if $zh }}全部清空{{ else }}Clear all{{ end }}">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="uuid-statusbar" class="px-4 sm:px-5 pt-2 text-xs flex flex-wrap items-center gap-x-3 gap-y-1 min-h-6">
+        <span id="uuid-status" class="text-slate-400 dark:text-zinc-500"></span>
+      </div>
+      <textarea id="uuid-output" rows="20" readonly spellcheck="false"
+                placeholder="{{ if $zh }}点击生成创建 UUID…{{ else }}Click Generate to create UUIDs...{{ end }}"
+                class="jt-editor jt-output-readonly"></textarea>
+      <div class="border-t border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-1">{{ if $zh }}UUID 校验{{ else }}UUID Validator{{ end }}</span>
+          <input id="uuid-check-input" type="text" spellcheck="false"
+                 placeholder="{{ if $zh }}粘贴 UUID 校验并识别版本，如 550e8400-e29b-41d4-a716-446655440000{{ else }}Paste a UUID to validate and detect its version, e.g. 550e8400-e29b-41d4-a716-446655440000{{ end }}"
+                 class="flex-1 min-w-[200px] text-sm text-slate-700 dark:text-zinc-200 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-lg px-3 py-1.5 outline-none font-mono">
+          <button id="uuid-check-btn" type="button" class="jt-btn">{{ if $zh }}校验{{ else }}Validate{{ end }}</button>
+        </div>
+        <div id="uuid-check-result" class="mt-2 text-sm"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/uuid-generator.js?v=6" defer></script>

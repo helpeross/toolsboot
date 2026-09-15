@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://toolsboot.com/sitemap.xml
+Sitemap: https://toolsboot.com/zh-cn/sitemap.xml

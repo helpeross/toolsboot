@@ -1,0 +1,238 @@
+<header class="bg-white border-b border-slate-200 dark:bg-zinc-900/95 dark:border-zinc-800 sticky top-0 z-30 shadow-sm dark:backdrop-blur-md transition-colors duration-200">
+  <!-- Row 1: Logo + Nav -->
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main">
+    <a href="{{ "" | relLangURL }}" class="flex items-center gap-2 font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white text-sm font-bold">TB</span>
+      <span class="hidden sm:inline">{{ .Site.Title }}</span>
+    </a>
+    <div class="flex items-center gap-3 sm:gap-5 text-sm">
+      <a href="{{ "/tools/" | relLangURL }}" class="font-medium text-slate-600 hover:text-brand-600 dark:text-zinc-400 dark:hover:text-brand-400 transition-colors">{{ i18n "nav_all_tools" }}</a>
+      <a href="{{ relLangURL "/#tools" }}" class="font-medium text-slate-600 hover:text-brand-600 dark:text-zinc-400 dark:hover:text-brand-400 transition-colors hidden sm:inline">{{ i18n "nav_popular" }}</a>
+      <a href="{{ relLangURL "/#about" }}" class="font-medium text-slate-600 hover:text-brand-600 dark:text-zinc-400 dark:hover:text-brand-400 transition-colors hidden sm:inline">{{ i18n "nav_about" }}</a>
+      <label for="lang-select" class="sr-only">{{ i18n "nav_lang_label" }}</label>
+      <select id="lang-select"
+              class="border border-slate-300 dark:border-zinc-700 dark:bg-zinc-800 rounded-lg px-2 py-1 text-sm bg-white text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer transition-colors">
+        {{- if eq .Lang "zh-cn" }}
+        <option value="en">English</option>
+        <option value="zh-cn" selected>简体中文</option>
+        {{- else }}
+        <option value="en" selected>English</option>
+        <option value="zh-cn">简体中文</option>
+        {{- end }}
+      </select>
+      <!-- Theme toggle -->
+      <button id="theme-toggle" type="button" aria-label="{{ i18n "theme_toggle" }}" title="{{ i18n "theme_toggle" }}"
+              class="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors">
+        <svg id="theme-icon-sun" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+        <svg id="theme-icon-moon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9 9 0 008.354-5.646z" /></svg>
+      </button>
+    </div>
+  </nav>
+  <!-- Row 2: Category bar + search toggle -->
+  <div class="border-t border-slate-100 dark:border-zinc-800/50 bg-slate-50/80 dark:bg-zinc-900/80 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-2">
+      <div id="category-bar" class="flex-1 flex items-center gap-1 overflow-x-auto scrollbar-hide py-2 text-sm whitespace-nowrap">
+        <button data-cat="All" class="cat-btn active px-3 py-1.5 rounded-full font-medium transition-all">{{ i18n "cat_all" }}</button>
+        {{- $cats := slice }}
+        {{- range hugo.Data.tools }}
+          {{- $cats = $cats | append .category }}
+        {{- end }}
+        {{- range $cats | uniq }}
+        <button data-cat="{{ . }}" class="cat-btn px-3 py-1.5 rounded-full font-medium transition-all">{{ i18n (printf "cat_%s" .) }}</button>
+        {{- end }}
+      </div>
+      <div class="shrink-0 flex items-center py-2">
+        <button id="search-toggle" type="button" title="{{ i18n "search_placeholder" }}" aria-label="{{ i18n "search_placeholder" }}"
+                class="inline-flex items-center justify-center h-8 w-8 rounded-lg text-slate-500 dark:text-zinc-400 hover:bg-slate-200/70 dark:hover:bg-zinc-700/60 hover:text-brand-600 dark:hover:text-brand-300 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" /></svg>
+        </button>
+        <input id="tool-search" type="search" autocomplete="off" spellcheck="false" placeholder="{{ i18n "search_placeholder" }}"
+               class="hidden w-44 sm:w-56 ml-1 pl-3 pr-3 py-1.5 rounded-lg border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-sm text-slate-700 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .cat-btn { color: #475569; }
+  .cat-btn:hover { background: #d9ebe6; color: #2d6d5c; }
+  .cat-btn.active { background: #2d6d5c; color: #fff; }
+  html.dark .cat-btn { color: #94a3b8; }
+  html.dark .cat-btn:hover { background: #1f4a3f; color: #8ac4b0; }
+</style>
+
+<script>
+  // Theme toggle
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        var isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    }
+  })();
+
+  // ---- Language switching ----
+  var TB_BASE = '{{ ("/tools/" | relLangURL) }}'; // language-aware tools listing path
+  var CAT_INFO = {
+    {{- $cats2 := slice }}
+    {{- range hugo.Data.tools }}
+      {{- $cats2 = $cats2 | append .category }}
+    {{- end }}
+    {{- range $cats2 | uniq }}
+    '{{ . }}': {
+      name: {{ (i18n (printf "cat_%s" .)) | jsonify }},
+      desc: {{ (i18n (printf "cat_desc_%s" .)) | jsonify }}
+    },
+    {{- end }}
+    'All': { name: {{ (i18n "cat_all") | jsonify }}, desc: '' }
+  };
+
+  function switchLang(ln) {
+    var cur = document.documentElement.lang || 'en';
+    if (cur === ln) return;
+    var p = location.pathname;
+    var np;
+    if (ln === 'en') {
+      np = p.replace(/^\/zh-cn/, '') || '/';
+    } else {
+      np = (p === '/' ? '/zh-cn/' : '/zh-cn' + p);
+    }
+    location.href = np;
+  }
+
+  (function() {
+    var sel = document.getElementById('lang-select');
+    if (sel) {
+      sel.addEventListener('change', function() {
+        var ln = this.value;
+        localStorage.setItem('tb-lang', ln);
+        switchLang(ln);
+      });
+    }
+    // Auto-switch by browser language (no persistence, so it follows the browser).
+    // Chinese (simplified) -> zh-cn; Traditional Chinese or any non-Chinese -> en.
+    var saved = null;
+    try { saved = localStorage.getItem('tb-lang'); } catch (e) { saved = null; }
+    if (!saved) {
+      var nav = (navigator.language || 'en').toLowerCase();
+      var want = 'en';
+      if (nav.indexOf('zh') === 0) {
+        want = (nav === 'zh-tw' || nav === 'zh-hk' || nav === 'zh-mo' || nav === 'zh-hant') ? 'en' : 'zh-cn';
+      }
+      switchLang(want);
+    }
+  })();
+
+  // Category filtering + tool search (shared state machine)
+  (function() {
+    var ORIG_TITLE = null;
+    var ORIG_DESC = null;
+    var FILTER = { cat: 'All', q: '' };
+
+    function syncPageHeading(cat) {
+      var title = document.getElementById('tools-title');
+      var desc = document.getElementById('tools-desc');
+      var content = document.getElementById('tools-content');
+      if (!title) return;
+      if (ORIG_TITLE === null) ORIG_TITLE = title.textContent;
+      if (desc && ORIG_DESC === null) ORIG_DESC = desc.textContent;
+      if (cat === 'All' || !CAT_INFO[cat]) {
+        title.textContent = ORIG_TITLE;
+        if (desc) desc.textContent = ORIG_DESC;
+        if (content) content.style.display = '';
+      } else {
+        title.textContent = CAT_INFO[cat].name;
+        if (desc) desc.textContent = CAT_INFO[cat].desc;
+        if (content) content.style.display = 'none';
+      }
+    }
+
+    function applyFilter() {
+      var cards = document.querySelectorAll('[data-category]');
+      var shown = 0;
+      cards.forEach(function(card) {
+        var catOk = FILTER.cat === 'All' || card.getAttribute('data-category') === FILTER.cat;
+        var qOk = !FILTER.q || (card.textContent || '').toLowerCase().indexOf(FILTER.q) !== -1;
+        var vis = catOk && qOk;
+        card.style.display = vis ? '' : 'none';
+        if (vis) shown++;
+      });
+      var empty = document.getElementById('search-empty');
+      if (empty) {
+        if (shown === 0) { empty.classList.remove('hidden'); } else { empty.classList.add('hidden'); }
+      }
+      syncPageHeading(FILTER.cat);
+      return shown;
+    }
+
+    function init() {
+      var btns = document.querySelectorAll('.cat-btn');
+      var cards = document.querySelectorAll('[data-category]');
+      var search = document.getElementById('tool-search');
+
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var cat = this.getAttribute('data-cat');
+          if (cat === 'All' && !FILTER.q) {
+            window.location.href = TB_BASE;
+            return;
+          }
+          if (cards.length === 0 && cat !== 'All') {
+            window.location.href = TB_BASE + '#' + cat;
+            return;
+          }
+          if (cat === 'All') cat = 'All';
+          FILTER.cat = cat;
+          btns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          applyFilter();
+        });
+      });
+
+      if (search) {
+        search.addEventListener('input', function() {
+          FILTER.q = this.value.trim().toLowerCase();
+          applyFilter();
+        });
+        search.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { this.classList.add('hidden'); }
+        });
+      }
+
+      var searchToggle = document.getElementById('search-toggle');
+      if (searchToggle && search) {
+        searchToggle.addEventListener('click', function() {
+          var isOpen = !search.classList.contains('hidden');
+          if (isOpen) {
+            search.classList.add('hidden');
+          } else {
+            search.classList.remove('hidden');
+            search.focus();
+          }
+        });
+      }
+
+      if (location.hash && cards.length > 0) {
+        var cat = decodeURIComponent(location.hash.slice(1));
+        var btn = null;
+        btns.forEach(function(b) {
+          if (b.getAttribute('data-cat') === cat) btn = b;
+        });
+        if (btn) {
+          FILTER.cat = cat;
+          btns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          applyFilter();
+          btn.scrollIntoView({ block: 'nearest' });
+        }
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

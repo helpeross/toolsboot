@@ -1,0 +1,20 @@
+{{ define "main" }}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <h1 id="tools-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">{{ i18n "list_title" }}</h1>
+  <p id="tools-desc" class="mt-2 text-slate-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
+    {{ i18n "list_desc" }}
+  </p>
+
+  <p id="search-empty" class="hidden text-sm text-slate-400 dark:text-zinc-500 py-8 text-center">{{ i18n "search_empty" }}</p>
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    {{- range hugo.Data.tools }}
+      {{ partial "tool-card.html" . }}
+    {{- end }}
+  </div>
+
+  <div id="tools-content">
+  {{ .Content }}
+  </div>
+</section>
+{{ end }}

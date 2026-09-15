@@ -1,0 +1,15 @@
+{{ $slug := .slug }}
+{{ $zh := eq site.Language.Lang "zh-cn" }}
+{{ $url  := (printf "/tools/%s/" $slug) | relLangURL }}
+<a href="{{ $url }}"
+   data-category="{{ .category }}"
+   class="tool-card group flex flex-col gap-3 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-5 hover:border-brand-300 dark:hover:border-brand-500/50 hover:shadow-md dark:hover:bg-zinc-800/50 transition-all">
+  <div class="flex items-center gap-3">
+    <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400 font-mono text-sm font-semibold group-hover:bg-brand-100 dark:group-hover:bg-brand-500/20 dark:group-hover:text-brand-300 transition-colors">{{ .icon | safeHTML }}</span>
+    <div>
+      <h3 class="font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight transition-colors">{{ if $zh }}{{ .name_zh }}{{ else }}{{ .name }}{{ end }}</h3>
+      <span class="text-xs text-slate-400 dark:text-zinc-500 font-medium">{{ i18n (printf "cat_%s" .category) }}</span>
+    </div>
+  </div>
+  <p class="text-sm text-slate-500 dark:text-zinc-400 leading-relaxed">{{ if $zh }}{{ .desc_zh }}{{ else }}{{ .desc }}{{ end }}</p>
+</a>

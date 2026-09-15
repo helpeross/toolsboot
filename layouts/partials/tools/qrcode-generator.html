@@ -1,0 +1,117 @@
+﻿{{- $zh := eq site.Language.Lang "zh-cn" }}
+<div class="mt-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/20 overflow-hidden transition-colors duration-200" id="qrc-tool">
+  <!-- Tool header -->
+  <div class="border-b border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">QR</span>
+      <span class="text-sm font-semibold text-slate-800 dark:text-zinc-200">{{ if $zh }}二维码生成器{{ else }}QR Code Generator{{ end }}</span>
+      <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}交互工具{{ else }}Interactive Tool{{ end }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="qrc-layout" type="button" title="{{ if $zh }}切换布局{{ else }}Toggle layout{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="qrc-layout-stack" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14v6H5z M5 14h14v6H5z"/></svg>
+        <svg id="qrc-layout-col" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h6v16H5z M13 4h6v16h-6z"/></svg>
+      </button>
+      <button id="qrc-fullscreen" type="button" title="{{ if $zh }}切换全屏{{ else }}Toggle fullscreen{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="qrc-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/></svg>
+        <svg id="qrc-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4v4H4M16 4v4h4M8 20v-4H4M16 20v-4h4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Panel container -->
+  <div id="qrc-panels" class="flex flex-col lg:flex-row lg:items-start">
+    <!-- Left: input + options -->
+    <div id="qrc-left" class="flex flex-col lg:flex-1 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-zinc-800">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-auto">{{ if $zh }}内容{{ else }}Content{{ end }}</span>
+        <button id="qrc-paste" type="button" class="jt-icon-btn" title="{{ if $zh }}粘贴到输入框{{ else }}Paste into input{{ end }}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M12 12v6m0 0l-3-3m3 3l3-3"/></svg>
+        </button>
+        <button id="qrc-clear" type="button" class="jt-icon-btn" title="{{ if $zh }}清空输入{{ else }}Clear input{{ end }}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        </button>
+      </div>
+      <textarea id="qrc-input" rows="7" spellcheck="false"
+                placeholder="https://example.com"
+                class="jt-editor" style="min-height:180px;"></textarea>
+      <div class="px-4 sm:px-5 py-3 space-y-3 border-t border-slate-100 dark:border-zinc-800">
+        <div class="flex items-center gap-3">
+          <span class="w-14 shrink-0 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}尺寸{{ else }}Size{{ end }}</span>
+          <input id="qrc-size" type="range" min="120" max="600" step="10" value="240" class="flex-1 accent-brand-500">
+          <span id="qrc-size-val" class="w-12 text-right text-xs font-mono text-slate-500 dark:text-zinc-400">240</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-14 shrink-0 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}边距{{ else }}Margin{{ end }}</span>
+          <input id="qrc-margin" type="range" min="0" max="10" step="1" value="2" class="flex-1 accent-brand-500">
+          <span id="qrc-margin-val" class="w-12 text-right text-xs font-mono text-slate-500 dark:text-zinc-400">2</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-14 shrink-0 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}容错{{ else }}Level{{ end }}</span>
+          <select id="qrc-ec" class="flex-1 text-xs bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-lg px-2 py-1.5 text-slate-700 dark:text-zinc-300 focus:outline-none focus:border-brand-400">
+            <option value="L">L - {{ if $zh }}低 (~7%){{ else }}Low (~7%){{ end }}</option>
+            <option value="M" selected>M - {{ if $zh }}中 (~15%){{ else }}Medium (~15%){{ end }}</option>
+            <option value="Q">Q - {{ if $zh }}较高 (~25%){{ else }}Quartile (~25%){{ end }}</option>
+            <option value="H">H - {{ if $zh }}高 (~30%){{ else }}High (~30%){{ end }}</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-14 shrink-0 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}颜色{{ else }}Colors{{ end }}</span>
+          <label class="flex items-center gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+            <input id="qrc-fg" type="color" value="#000000" class="w-8 h-7 rounded cursor-pointer border border-slate-200 dark:border-zinc-700 bg-transparent p-0.5">
+            <span id="qrc-fg-val" class="font-mono">#000000</span>
+          </label>
+          <label class="flex items-center gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+            <input id="qrc-bg" type="color" value="#ffffff" class="w-8 h-7 rounded cursor-pointer border border-slate-200 dark:border-zinc-700 bg-transparent p-0.5">
+            <span id="qrc-bg-val" class="font-mono">#ffffff</span>
+          </label>
+        </div>
+        <button id="qrc-generate" type="button" class="w-full inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors jt-pop">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+          Generate QR Code
+        </button>
+      </div>
+    </div>
+
+    <!-- Resizer (desktop only) -->
+    <div id="qrc-resizer" role="separator" aria-label="{{ if $zh }}拖动调整面板宽度{{ else }}Drag to resize panels{{ end }}" class="hidden lg:flex self-stretch group w-2.5 cursor-col-resize items-center justify-center transition-colors" style="touch-action:none;">
+      <span class="flex flex-col gap-1.5" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+      </span>
+    </div>
+
+    <!-- Right: preview -->
+    <div id="qrc-right" class="flex flex-col lg:flex-[1.4] min-h-0">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}预览{{ else }}Preview{{ end }}</span>
+          <label class="flex items-center gap-1.5 text-xs text-slate-600 dark:text-zinc-400 cursor-pointer select-none">
+            <input id="qrc-live" type="checkbox" checked class="accent-brand-500 w-3.5 h-3.5">
+            Live
+          </label>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button id="qrc-dl" type="button" title="{{ if $zh }}下载二维码 PNG{{ else }}Download QR code as PNG{{ end }}"
+                  class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 px-2.5 py-1.5 rounded-lg transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4"/></svg>
+            PNG
+          </button>
+        </div>
+      </div>
+      <div id="qrc-statusbar" class="px-4 sm:px-5 pt-2 text-xs flex flex-wrap items-center gap-x-3 gap-y-1 min-h-6">
+        <span id="qrc-status" class="text-slate-400 dark:text-zinc-500"></span>
+      </div>
+      <div class="flex-1 flex items-center justify-center p-5 bg-slate-50 dark:bg-zinc-900/60 min-h-64">
+        <div id="qrc-preview" class="p-4 bg-white dark:bg-zinc-100 rounded-xl shadow-sm dark:shadow-black/20 inline-block"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/vendor/qrcode.min.js" defer></script>
+<script src="/js/qrcode-generator.js?v=3" defer></script>

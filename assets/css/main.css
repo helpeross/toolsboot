@@ -1,0 +1,3 @@
+/* Reserved for a hand-rolled static fallback if the Tailwind CDN is switched off.
+   For now the site uses the Tailwind Play CDN, so this file stays intentionally tiny. */
+:root { scroll-behavior: smooth; }

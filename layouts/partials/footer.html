@@ -1,0 +1,41 @@
+<footer class="border-t border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/50 mt-20 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 text-sm text-slate-500 dark:text-zinc-400 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white mb-2">
+        <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand-600 text-white text-xs font-bold">TB</span>
+        {{ .Site.Title }}
+      </div>
+      <p class="leading-relaxed">{{ i18n "footer_tagline_sub" }}</p>
+    </div>
+    <div>
+      <p class="font-semibold text-slate-900 dark:text-white mb-3">{{ i18n "footer_popular" }}</p>
+      <ul class="space-y-2">
+        {{- range first 6 (where site.RegularPages "Section" "tools") }}
+        <li><a href="{{ .Permalink }}" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ .Title }}</a></li>
+        {{- end }}
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold text-slate-900 dark:text-white mb-3">{{ i18n "footer_categories" }}</p>
+      <ul class="space-y-2">
+        {{- $cats := slice }}
+        {{- range hugo.Data.tools }}
+          {{- $cats = $cats | append .category }}
+        {{- end }}
+        {{- range $cats | uniq }}
+        <li><a href="{{ "/tools/" | relLangURL }}#{{ . }}" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ i18n (printf "cat_%s" .) }}</a></li>
+        {{- end }}
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold text-slate-900 dark:text-white mb-3">{{ i18n "footer_about" }}</p>
+      <p class="leading-relaxed">{{ i18n "footer_about_desc" }}</p>
+    </div>
+  </div>
+  <div class="border-t border-slate-100 dark:border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 text-xs text-slate-400 dark:text-zinc-500 flex flex-wrap items-center justify-between gap-2">
+      <span>&copy; {{ now.Format "2006" }} {{ .Site.Title }}. {{ i18n "footer_rights" }}</span>
+      <a href="/sitemap.xml" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Sitemap</a>
+    </div>
+  </div>
+</footer>

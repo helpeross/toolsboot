@@ -29,25 +29,35 @@ if (Test-Path $stub) {
 
 # Hugo's multilingual root sitemap.xml is a <sitemapindex> that points at
 # /en/sitemap.xml and /zh-cn/sitemap.xml. After the /en/ stub is removed the
-# EN sitemap link would be dead, so regenerate the root sitemap as an EN
-# <urlset> covering the actual English pages that live at the site root.
-$enUrls = @(
-    "https://toolsboot.com/",
-    "https://toolsboot.com/tools/"
-)
-Get-ChildItem "$root\public\tools" -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+# EN sitemap link would be dead, so regenerate the root sitemap as a single
+# <urlset> covering every EN + zh-cn page, each URL carrying hreflang
+# alternates (EN is the x-default language).
+$enUrls = @("https://toolsboot.com/", "https://toolsboot.com/tools/")
+$zhUrls = @("https://toolsboot.com/zh-cn/", "https://toolsboot.com/zh-cn/tools/")
+Get-ChildItem "$root\public\tools" -Directory -ErrorAction SilentlyContinue | Sort-Object Name | ForEach-Object {
     if (Test-Path "$($_.FullName)\index.html") {
-        $enUrls += "https://toolsboot.com/tools/$($_.Name)/"
+        $n = $_.Name
+        $enUrls += "https://toolsboot.com/tools/$n/"
+        $zhUrls += "https://toolsboot.com/zh-cn/tools/$n/"
     }
 }
 $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine('<?xml version="1.0" encoding="utf-8" standalone="yes"?>')
-[void]$sb.AppendLine('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-foreach ($u in $enUrls) {
-    [void]$sb.AppendLine("  <url><loc>$u</loc></url>")
+[void]$sb.AppendLine('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">')
+for ($i = 0; $i -lt $enUrls.Count; $i++) {
+    $e = $enUrls[$i]; $z = $zhUrls[$i]
+    foreach ($pair in @(@($e, $z), @($z, $e))) {
+        $loc = $pair[0]; $alt = $pair[1]
+        [void]$sb.AppendLine("  <url>")
+        [void]$sb.AppendLine("    <loc>$loc</loc>")
+        [void]$sb.AppendLine("    <xhtml:link rel=`"alternate`" hreflang=`"en`" href=`"$e`" />")
+        [void]$sb.AppendLine("    <xhtml:link rel=`"alternate`" hreflang=`"zh-cn`" href=`"$z`" />")
+        [void]$sb.AppendLine("    <xhtml:link rel=`"alternate`" hreflang=`"x-default`" href=`"$e`" />")
+        [void]$sb.AppendLine("  </url>")
+    }
 }
 [void]$sb.AppendLine('</urlset>')
 [System.IO.File]::WriteAllText("$root\public\sitemap.xml", $sb.ToString(), (New-Object System.Text.UTF8Encoding $false))
-Write-Host "Regenerated root sitemap.xml with $($enUrls.Count) EN URLs."
+Write-Host "Regenerated root sitemap.xml with $($enUrls.Count) EN + $($zhUrls.Count) zh-cn URLs."
 
 Write-Host "Build OK -> $root\public"

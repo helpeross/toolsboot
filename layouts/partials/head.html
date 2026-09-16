@@ -22,7 +22,9 @@
 {{- range .AllTranslations }}
   <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}"/>
 {{- end }}
-<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+{{- $xdef := .Permalink }}
+{{- range .AllTranslations }}{{ if eq .Lang "en" }}{{ $xdef = .Permalink }}{{ end }}{{ end }}
+<link rel="alternate" hreflang="x-default" href="{{ $xdef }}" />
 
 <!-- Open Graph / Twitter -->
 <meta property="og:site_name" content="{{ .Site.Title }}" />
@@ -30,7 +32,7 @@
 <meta property="og:title" content="{{ $seoTitle }}" />
 <meta property="og:description" content="{{ $desc }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
-<meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}" />
+<meta property="og:locale" content="{{ .Language.Locale | default "en-US" }}" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ $seoTitle }}" />
 <meta name="twitter:description" content="{{ $desc }}" />

@@ -25,6 +25,12 @@ disableKinds = ["taxonomy", "term", "RSS"]
   [markup.goldmark.renderer]
     unsafe = true
 
+# Compress generated HTML (safe: tdewolff leaves inline <script> content untouched)
+[minify]
+  enable = true
+  [minify.tdewolff.html]
+    keepWhitespace = false
+
 [imaging]
   resampleFilter = "box"
   quality = 82

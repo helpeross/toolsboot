@@ -111,12 +111,12 @@ var TB_L = (document.documentElement.lang === "zh-cn") ? {
   clipBlocked: '<span class="text-red-500 dark:text-red-400 font-medium">剪贴板读取被阻止 - 请改用 Ctrl+V</span>',
   clipNoApi: '<span class="text-red-500 dark:text-red-400 font-medium">剪贴板 API 不可用 - 请改用 Ctrl+V</span>'
 } : {
-  copiedOk: 'L.copied',
-  pastedOk: 'L.pasted',
-  copyFail: 'L.copyFailed',
-  clipUnavail: 'L.clipUnavail',
-  clipBlocked: 'L.pasteBlocked',
-  clipNoApi: 'L.pasteUnavail'
+  copiedOk: '<span class="text-emerald-600 dark:text-emerald-400 font-medium">Copied to clipboard</span>',
+  pastedOk: '<span class="text-emerald-600 dark:text-emerald-400 font-medium">Pasted from clipboard</span>',
+  copyFail: '<span class="text-red-500 dark:text-red-400 font-medium">Copy failed</span>',
+  clipUnavail: '<span class="text-red-500 dark:text-red-400 font-medium">Clipboard unavailable</span>',
+  clipBlocked: '<span class="text-red-500 dark:text-red-400 font-medium">Clipboard read blocked - use Ctrl+V instead</span>',
+  clipNoApi: '<span class="text-red-500 dark:text-red-400 font-medium">Clipboard API unavailable - use Ctrl+V instead</span>'
 };
 (function () {
   "use strict";
@@ -247,12 +247,12 @@ var TB_L = (document.documentElement.lang === "zh-cn") ? {
         if (t == null) return;
         el.input.value = t;
         if (el.live.checked) generate();
-        flashStatus('L.pasted');
+        flashStatus(L.pasted);
       }).catch(function () {
-        setStatus('L.pasteBlocked');
+        setStatus(L.pasteBlocked);
       });
     } else {
-      setStatus('L.pasteUnavail');
+      setStatus(L.pasteUnavail);
     }
   }
 

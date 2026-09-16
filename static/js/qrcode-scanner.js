@@ -111,12 +111,12 @@ var TB_L = (document.documentElement.lang === "zh-cn") ? {
   clipBlocked: '<span class="text-red-500 dark:text-red-400 font-medium">剪贴板读取被阻止 - 请改用 Ctrl+V</span>',
   clipNoApi: '<span class="text-red-500 dark:text-red-400 font-medium">剪贴板 API 不可用 - 请改用 Ctrl+V</span>'
 } : {
-  copiedOk: 'L.copied',
-  pastedOk: 'L.pasted',
-  copyFail: 'L.copyFailed',
-  clipUnavail: 'L.clipUnavail',
-  clipBlocked: 'L.pasteBlocked',
-  clipNoApi: 'L.pasteUnavail'
+  copiedOk: '<span class="text-emerald-600 dark:text-emerald-400 font-medium">Copied to clipboard</span>',
+  pastedOk: '<span class="text-emerald-600 dark:text-emerald-400 font-medium">Pasted from clipboard</span>',
+  copyFail: '<span class="text-red-500 dark:text-red-400 font-medium">Copy failed</span>',
+  clipUnavail: '<span class="text-red-500 dark:text-red-400 font-medium">Clipboard unavailable</span>',
+  clipBlocked: '<span class="text-red-500 dark:text-red-400 font-medium">Clipboard read blocked - use Ctrl+V instead</span>',
+  clipNoApi: '<span class="text-red-500 dark:text-red-400 font-medium">Clipboard API unavailable - use Ctrl+V instead</span>'
 };
 (function () {
   "use strict";
@@ -355,7 +355,7 @@ var TB_L = (document.documentElement.lang === "zh-cn") ? {
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        flash('L.copied');
+        flash(L.copied);
       }).catch(function () {
         fallbackCopy(text);
       });
@@ -370,8 +370,8 @@ var TB_L = (document.documentElement.lang === "zh-cn") ? {
     ta.style.opacity = "0";
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand("copy"); flash('L.copied'); }
-    catch (e) { flash('L.copyFailed'); }
+    try { document.execCommand("copy"); flash(L.copied); }
+    catch (e) { flash(L.copyFailed); }
     document.body.removeChild(ta);
   }
 

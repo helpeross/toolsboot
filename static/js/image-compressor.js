@@ -95,7 +95,7 @@ var L = (function () { var z = document.documentElement.lang === "zh-cn"; return
       d.appendChild(lab); d.appendChild(val);
       el.metrics.appendChild(d);
     }
-    current = { name: name, outBytes: outBytes, dataUrl: result.dataUrl, w: result.w, h: result.h };
+    current = { name: name, originalBytes: originalBytes, outBytes: outBytes, dataUrl: result.dataUrl, w: result.w, h: result.h, img: current ? current.img : null };
     setStatus('<span class="text-slate-400 dark:text-zinc-500">' + L.compressed + ": " + fmtBytes(outBytes) + (pct > 0 ? " · " + L.saved + " " + pct + "%" : "") + "</span>");
   }
 
@@ -119,9 +119,7 @@ var L = (function () { var z = document.documentElement.lang === "zh-cn"; return
     try { render(compress(lastImg), current.originalBytes, current.name); }
     catch (e) { setStatus('<span class="text-red-500 dark:text-red-400 font-medium">' + e.message + "</span>"); }
   }
-  // hook into handleFile to remember raw Image + bytes
-  var origHandle = handleFile;
-  handleFile = function (file) {
+  function handleFile(file) {
     if (!file) return;
     if (!/^image\//.test(file.type)) { setStatus('<span class="text-red-500 dark:text-red-400 font-medium">' + L.notImage + "</span>"); return; }
     var reader = new FileReader();

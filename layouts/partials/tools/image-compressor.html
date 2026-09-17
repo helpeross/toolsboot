@@ -1,0 +1,97 @@
+{{- $zh := eq site.Language.Lang "zh-cn" }}
+<div class="mt-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/20 overflow-hidden transition-colors duration-200" id="imgc-tool">
+  <div class="border-b border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">IMG</span>
+      <span class="text-sm font-semibold text-slate-800 dark:text-zinc-200">{{ if $zh }}图片压缩{{ else }}Image Compressor{{ end }}</span>
+      <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}交互工具{{ else }}Interactive Tool{{ end }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="imgc-layout" type="button" title="{{ if $zh }}切换布局{{ else }}Toggle layout{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="imgc-layout-stack" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14v6H5z M5 14h14v6H5z"/></svg>
+        <svg id="imgc-layout-col" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h6v16H5z M13 4h6v16h-6z"/></svg>
+      </button>
+      <button id="imgc-fullscreen" type="button" title="{{ if $zh }}切换全屏{{ else }}Toggle fullscreen{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="imgc-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/></svg>
+        <svg id="imgc-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4v4H4M16 4v4h4M8 20v-4H4M16 20v-4h4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="imgc-panels" class="flex flex-col lg:flex-row lg:items-start">
+    <div id="imgc-left" class="flex flex-col lg:flex-[0.85] border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-zinc-800">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-1.5 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-2">{{ if $zh }}文件{{ else }}File{{ end }}</span>
+      </div>
+      <div class="px-4 sm:px-5 py-3 flex flex-col gap-3">
+        <label id="imgc-drop" for="imgc-file"
+               class="flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-300 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-800/60 px-4 py-8 text-center cursor-pointer hover:border-brand-400 transition-colors">
+          <svg class="w-8 h-8 text-slate-400 dark:text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span class="text-sm font-medium text-slate-600 dark:text-zinc-300">{{ if $zh }}点击选择或拖拽图片到此处{{ else }}Click to choose or drag an image here{{ end }}</span>
+          <span class="text-xs text-slate-400 dark:text-zinc-500">JPG / PNG / WEBP / GIF</span>
+        </label>
+        <input id="imgc-file" type="file" accept="image/*" class="hidden" />
+        <label class="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}质量 (0-100){{ else }}Quality (0-100){{ end }}: <span id="imgc-qval" class="font-mono">80</span></span>
+          <input id="imgc-quality" type="range" min="1" max="100" value="80" class="accent-brand-500" />
+        </label>
+        <label class="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}最大宽度 (px, 0=原始){{ else }}Max width (px, 0=original){{ end }}: <span id="imgc-wval" class="font-mono">0</span></span>
+          <input id="imgc-width" type="range" min="0" max="4096" step="64" value="0" class="accent-brand-500" />
+        </label>
+        <label class="flex items-center gap-2 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}格式{{ else }}Format{{ end }}</span>
+          <select id="imgc-fmt" class="flex-1 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1.5 text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors">
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WEBP</option>
+          </select>
+        </label>
+        <div class="flex flex-col gap-2 pt-1">
+          <button id="imgc-download" type="button" disabled
+                  class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand-600 text-white text-sm font-medium px-3 py-2 opacity-50 disabled:opacity-40 hover:bg-brand-700 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            {{ if $zh }}下载压缩图片{{ else }}Download compressed image{{ end }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="imgc-resizer" role="separator" aria-label="{{ if $zh }}拖动调整面板宽度{{ else }}Drag to resize panels{{ end }}" class="hidden lg:flex self-stretch group w-2.5 cursor-col-resize items-center justify-center transition-colors" style="touch-action:none;">
+      <span class="flex flex-col gap-1.5" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+      </span>
+    </div>
+
+    <div id="imgc-right" class="flex flex-col lg:flex-[1.2] min-h-0">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}预览{{ else }}Preview{{ end }}</span>
+      </div>
+      <div id="imgc-statusbar" class="px-4 sm:px-5 pt-2 text-xs flex flex-wrap items-center gap-x-3 gap-y-1 min-h-6">
+        <span id="imgc-status" class="text-slate-400 dark:text-zinc-500"></span>
+      </div>
+      <div class="flex flex-col gap-3 px-4 sm:px-5 py-3">
+        <div id="imgc-empty" class="flex flex-col items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/40 py-16 text-center">
+          <svg class="w-10 h-10 text-slate-300 dark:text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span class="text-sm text-slate-400 dark:text-zinc-500">{{ if $zh }}选择图片后在此预览{{ else }}Compressed preview appears here{{ end }}</span>
+        </div>
+        <div id="imgc-preview" class="hidden flex-col gap-3">
+          <div class="flex flex-col gap-1.5">
+            <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}压缩后{{ else }}Compressed{{ end }}</span>
+            <div class="rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/40 p-2 flex items-center justify-center">
+              <img id="imgc-out" alt="" class="max-w-full max-h-96 rounded-lg" />
+            </div>
+          </div>
+          <div id="imgc-metrics" class="grid grid-cols-2 gap-2 text-xs"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/image-compressor.js?v=1" defer></script>

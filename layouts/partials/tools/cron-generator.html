@@ -1,0 +1,83 @@
+{{- $zh := eq site.Language.Lang "zh-cn" }}
+<div class="mt-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/20 overflow-hidden transition-colors duration-200" id="crong-tool">
+  <div class="border-b border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">*</span>
+      <span class="text-sm font-semibold text-slate-800 dark:text-zinc-200">{{ if $zh }}Cron 表达式生成器{{ else }}Cron Expression Generator{{ end }}</span>
+      <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}交互工具{{ else }}Interactive Tool{{ end }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="crong-layout" type="button" title="{{ if $zh }}切换布局{{ else }}Toggle layout{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="crong-layout-stack" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14v6H5z M5 14h14v6H5z"/></svg>
+        <svg id="crong-layout-col" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h6v16H5z M13 4h6v16h-6z"/></svg>
+      </button>
+      <button id="crong-fullscreen" type="button" title="{{ if $zh }}切换全屏{{ else }}Toggle fullscreen{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="crong-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/></svg>
+        <svg id="crong-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4v4H4M16 4v4h4M8 20v-4H4M16 20v-4h4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="crong-panels" class="flex flex-col lg:flex-row lg:items-start">
+    <div id="crong-left" class="flex flex-col lg:flex-[0.85] border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-zinc-800">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-1.5 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500 mr-2">{{ if $zh }}设置{{ else }}Settings{{ end }}</span>
+      </div>
+      <div class="px-4 sm:px-5 py-3 flex flex-col gap-3">
+        <label class="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}分钟 (0-59){{ else }}Minute (0-59){{ end }}</span>
+          <select id="crong-min" class="w-full rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></select>
+        </label>
+        <label class="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}小时 (0-23){{ else }}Hour (0-23){{ end }}</span>
+          <select id="crong-hour" class="w-full rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></select>
+        </label>
+        <label class="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}日 (1-31){{ else }}Day of month (1-31){{ end }}</span>
+          <select id="crong-dom" class="w-full rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></select>
+        </label>
+        <label class="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}月 (1-12){{ else }}Month (1-12){{ end }}</span>
+          <select id="crong-mon" class="w-full rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></select>
+        </label>
+        <label class="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-zinc-400">
+          <span>{{ if $zh }}星期 (0=周日){{ else }}Day of week (0=Sunday){{ end }}</span>
+          <select id="crong-dow" class="w-full rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></select>
+        </label>
+        <div id="crong-presets" class="flex flex-wrap gap-1.5 pt-1"></div>
+      </div>
+    </div>
+
+    <div id="crong-resizer" role="separator" aria-label="{{ if $zh }}拖动调整面板宽度{{ else }}Drag to resize panels{{ end }}" class="hidden lg:flex self-stretch group w-2.5 cursor-col-resize items-center justify-center transition-colors" style="touch-action:none;">
+      <span class="flex flex-col gap-1.5" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+      </span>
+    </div>
+
+    <div id="crong-right" class="flex flex-col lg:flex-[1.15] min-h-0">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}表达式{{ else }}Expression{{ end }}</span>
+        <button id="crong-copy" type="button" class="jt-icon-btn" title="{{ if $zh }}复制表达式{{ else }}Copy expression{{ end }}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </button>
+      </div>
+      <div id="crong-statusbar" class="px-4 sm:px-5 pt-2 text-xs flex flex-wrap items-center gap-x-3 gap-y-1 min-h-6">
+        <span id="crong-status" class="text-slate-400 dark:text-zinc-500"></span>
+      </div>
+      <div class="px-4 sm:px-5 py-4 flex flex-col gap-4">
+        <div id="crong-expr" class="rounded-lg border border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-800 px-4 py-3 font-mono text-lg font-semibold text-brand-600 dark:text-brand-400 break-all select-all">* * * * *</div>
+        <div id="crong-desc" class="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed"></div>
+        <div class="text-xs text-slate-400 dark:text-zinc-500 leading-relaxed">
+          {{ if $zh }}字段顺序：分 时 日 月 星期。支持标准 5 段 cron，适用于 cron 作业、调度器等。{{ else }}Field order: minute hour day-of-month month day-of-week. Standard 5-field cron for jobs and schedulers.{{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/cron-generator.js?v=2" defer></script>

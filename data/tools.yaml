@@ -1,7 +1,3 @@
-# Tools directory. `slug` is used for /tools/<slug>/ URLs and the widget partial name.
-# `category` drives the top navigation filter on the home and /tools pages.
-# Categories: Formatters | Encoders | Generators | Converters | Scanners
-
 - name: JSON Formatter
   name_zh: JSON 格式化
   slug: json-formatter
@@ -9,6 +5,7 @@
   category: Formatters
   desc: "Pretty-print, validate, and minify JSON in one click. Great for reading API responses."
   desc_zh: "一键美化、校验、压缩 JSON，适合阅读 API 返回内容。"
+
 
 - name: Base64 Encoder / Decoder
   name_zh: Base64 编码/解码
@@ -18,6 +15,7 @@
   desc: "Encode and decode text to and from Base64 for auth headers, tokens, and payloads."
   desc_zh: "文本与 Base64 互转，适用于认证头、令牌与数据载荷。"
 
+
 - name: URL Encoder / Decoder
   name_zh: URL 编码/解码
   slug: url-encoder
@@ -25,6 +23,7 @@
   category: Encoders
   desc: "Percent-encode or decode URLs and query strings with safe character handling."
   desc_zh: "安全处理 URL 与查询字符串的百分号编码与解码。"
+
 
 - name: UUID Generator
   name_zh: UUID 生成器
@@ -34,6 +33,7 @@
   desc: "Generate random UUIDs (v4) in bulk for keys, names, and database identifiers."
   desc_zh: "批量生成随机 UUID（v4），用于键、名称与数据库标识。"
 
+
 - name: MD5 Hash Generator
   name_zh: MD5 哈希生成器
   slug: md5-generator
@@ -41,6 +41,7 @@
   category: Generators
   desc: "Compute MD5 hashes of text or hex strings instantly for quick checks."
   desc_zh: "快速计算文本或十六进制字符串的 MD5 哈希。"
+
 
 - name: Hash Generator (MD5/SHA-1/SHA-256/SHA-512)
   name_zh: 哈希计算器
@@ -50,6 +51,7 @@
   desc: "Compute MD5, SHA-1, SHA-256 or SHA-512 hashes of text or files instantly."
   desc_zh: "即时计算文本或文件的 MD5、SHA-1、SHA-256 与 SHA-512 哈希。"
 
+
 - name: Random Password Generator
   name_zh: 随机密码生成器
   slug: password-generator
@@ -57,6 +59,7 @@
   category: Generators
   desc: "Create strong, customizable passwords with letters, digits, and symbols."
   desc_zh: "使用字母、数字与符号生成强大、可自定义的密码。"
+
 
 - name: Timestamp Converter
   name_zh: 时间戳转换器
@@ -66,6 +69,7 @@
   desc: "Convert between Unix timestamps and human-readable dates in both directions."
   desc_zh: "Unix 时间戳与可读日期双向转换。"
 
+
 - name: JSON to YAML Converter
   name_zh: JSON 转 YAML
   slug: json-to-yaml
@@ -73,6 +77,7 @@
   category: Converters
   desc: "Turn JSON into clean, readable YAML for config files and workflows."
   desc_zh: "将 JSON 转换为整洁易读的 YAML，用于配置文件。"
+
 
 - name: CSS Minifier
   name_zh: CSS 压缩器
@@ -82,6 +87,7 @@
   desc: "Strip whitespace and comments from CSS for smaller, faster stylesheets."
   desc_zh: "去除 CSS 中的空白与注释，获得更小更快的样式表。"
 
+
 - name: HTML Entity Encoder
   name_zh: HTML 实体编码器
   slug: html-entity-encoder
@@ -89,6 +95,7 @@
   category: Encoders
   desc: "Escape or unescape HTML entities to safely embed text in markup."
   desc_zh: "转义或反转义 HTML 实体，安全嵌入文本。"
+
 
 - name: Language Cipher
   name_zh: 语言加密
@@ -98,6 +105,7 @@
   desc: "Encrypt text into Chinese, English letters or other scripts, with an optional secret key."
   desc_zh: "将文本加密为汉字、英文字母或其他文字，可设置密钥。"
 
+
 - name: Number Base Converter
   name_zh: 进制转换器
   slug: number-base-converter
@@ -105,6 +113,7 @@
   category: Converters
   desc: "Convert numbers between binary, octal, decimal, and hexadecimal."
   desc_zh: "在二进制、八进制、十进制与十六进制之间转换数字。"
+
 
 - name: Text Diff
   name_zh: 文本对比
@@ -114,6 +123,7 @@
   desc: "Compare two texts side by side and spot added, removed and changed lines instantly."
   desc_zh: "并排比较两段文本，快速找出新增、删除与修改的行。"
 
+
 - name: QR Code Generator
   name_zh: 二维码生成器
   slug: qrcode-generator
@@ -121,6 +131,7 @@
   category: Generators
   desc: "Turn any text or URL into a QR code with custom size, colors and error correction."
   desc_zh: "将任意文本或网址生成二维码，支持自定义尺寸、颜色与容错级别。"
+
 
 - name: QR Code Scanner
   name_zh: 二维码扫描器
@@ -130,6 +141,7 @@
   desc: "Decode QR codes from images - paste, drag & drop or select multiple pictures."
   desc_zh: "从图片中解码二维码——支持粘贴、拖放或选择多张图片。"
 
+
 - name: JWT Decoder / Encoder
   name_zh: JWT 编解码
   slug: jwt-decoder
@@ -137,6 +149,7 @@
   category: Encoders
   desc: "Decode JWT headers and payloads, and verify HS256/384/512 signatures locally."
   desc_zh: "本地解码 JWT 头部与载荷，并校验 HS256/384/512 签名。"
+
 
 - name: Morse Code Translator
   name_zh: 摩斯电码
@@ -146,6 +159,7 @@
   desc: "Translate text to and from Morse code with letter, digit and punctuation support."
   desc_zh: "在文本与摩斯电码之间互转，支持字母、数字与标点。"
 
+
 - name: RSA Encrypt / Decrypt
   name_zh: RSA 加密/解密
   slug: rsa-encrypt
@@ -153,6 +167,7 @@
   category: Encoders
   desc: "Generate RSA key pairs and encrypt or decrypt messages with OAEP padding."
   desc_zh: "生成 RSA 密钥对，使用 OAEP 填充加密或解密消息。"
+
 
 - name: Color Converter
   name_zh: 颜色转换器
@@ -162,6 +177,7 @@
   desc: "Convert colors between HEX, RGB and HSL with a live preview swatch."
   desc_zh: "在 HEX、RGB 与 HSL 之间转换颜色，带实时预览色块。"
 
+
 - name: URL Params to JSON
   name_zh: URL 参数转 JSON
   slug: url-params-to-json
@@ -169,6 +185,7 @@
   category: Converters
   desc: "Convert URL query strings to JSON and back, including full URLs."
   desc_zh: "在 URL 查询字符串与 JSON 之间互转，支持完整 URL。"
+
 
 - name: JSON to Go Struct
   name_zh: JSON 转 Go 结构体
@@ -178,6 +195,7 @@
   desc: "Generate a typed Go struct from a JSON sample in one click."
   desc_zh: "一键根据 JSON 示例生成带类型的 Go 结构体。"
 
+
 - name: XML Formatter
   name_zh: XML 格式化
   slug: xml-formatter
@@ -185,6 +203,7 @@
   category: Formatters
   desc: "Pretty-print, minify or validate XML documents instantly."
   desc_zh: "即时美化、压缩或校验 XML 文档。"
+
 
 - name: Cron Parser
   name_zh: Cron 表达式解析
@@ -194,6 +213,7 @@
   desc: "Parse 5/6-field cron expressions and preview upcoming run times."
   desc_zh: "解析 5/6 段 Cron 表达式，预览未来触发时间。"
 
+
 - name: Placeholder Image Generator
   name_zh: 占位图片生成器
   slug: placeholder-image
@@ -201,6 +221,7 @@
   category: Generators
   desc: "Create placeholder images with custom size, colors and text as PNG or SVG."
   desc_zh: "生成自定义尺寸、颜色与文字的占位图片，支持 PNG 或 SVG。"
+
 
 - name: HTTP Status Codes
   name_zh: HTTP 状态码查询
@@ -210,6 +231,7 @@
   desc: "Browse and search HTTP status codes with RFC descriptions and use cases."
   desc_zh: "浏览与搜索 HTTP 状态码，附 RFC 释义与使用场景。"
 
+
 - name: Public DNS Servers
   name_zh: 公共 DNS 大全
   slug: public-dns
@@ -217,6 +239,7 @@
   category: Reference
   desc: "A quick reference of public DNS servers from Google, Cloudflare and more."
   desc_zh: "Google、Cloudflare 等公共 DNS 服务器快速参考。"
+
 
 - name: World Capitals
   name_zh: 各国首都
@@ -226,6 +249,7 @@
   desc: "Look up the capital of any country, searchable by country or capital name."
   desc_zh: "查询任意国家的首都，可按国家或首都名称搜索。"
 
+
 - name: Favicon Finder
   name_zh: 网站图标获取
   slug: favicon-finder
@@ -233,6 +257,7 @@
   category: Reference
   desc: "Preview and download any website's favicon in multiple sizes."
   desc_zh: "预览并下载任意网站的图标，支持多种尺寸。"
+
 
 - name: Base32 Encoder / Decoder
   name_zh: Base32 编码/解码
@@ -243,6 +268,7 @@
   desc_zh: "在文本与 Base32 之间互转，大小写不敏感的基础编码。"
   keywords: "base32 encoder, base32 decoder, base32 encode, base32 online"
 
+
 - name: Base58 Encoder / Decoder
   name_zh: Base58 编码/解码
   slug: base58-encoder
@@ -251,6 +277,7 @@
   desc: "Encode and decode Base58, the Bitcoin-style alphabet without 0, O, I and l."
   desc_zh: "Base58 编解码，使用去除 0、O、I、l 的比特币风格字母表。"
   keywords: "base58 encoder, base58 decoder, base58 bitcoin, base58 encode"
+
 
 - name: ROT13 / ROT5 / ROT18
   name_zh: ROT13/ROT5/ROT18 加解密
@@ -261,6 +288,7 @@
   desc_zh: "对字母（ROT13）和数字（ROT5）或两者（ROT18）做位移混淆。"
   keywords: "rot13, rot5, rot18, caesar cipher, rot encoder"
 
+
 - name: AES Encrypt / Decrypt
   name_zh: AES 加密/解密
   slug: aes-encrypt
@@ -269,6 +297,7 @@
   desc: "Encrypt and decrypt text with AES-256 in CBC or GCM mode using a passphrase."
   desc_zh: "使用口令以 AES-256 CBC 或 GCM 模式对文本加解密。"
   keywords: "aes encrypt, aes decrypt, aes-256, aes cbc, aes gcm, encryption tool"
+
 
 - name: JSON to TypeScript
   name_zh: JSON 转 TypeScript 类型
@@ -279,6 +308,7 @@
   desc_zh: "根据 JSON 示例生成 TypeScript 接口与类型别名。"
   keywords: "json to typescript, json to ts, typescript interface generator, json types"
 
+
 - name: JSON to C# Class
   name_zh: JSON 转 C# 实体类
   slug: json-to-csharp
@@ -287,6 +317,7 @@
   desc: "Generate C# entity classes with properties and attributes from JSON."
   desc_zh: "根据 JSON 生成带属性与特性的 C# 实体类。"
   keywords: "json to c#, json to csharp, c# class generator, json to entity"
+
 
 - name: cURL to Python / JS
   name_zh: cURL 转 Python/JS
@@ -297,6 +328,7 @@
   desc_zh: "把 cURL 命令转换为 Python requests 或 JavaScript fetch 代码。"
   keywords: "curl to python, curl to requests, curl to javascript, curl to fetch, curl converter"
 
+
 - name: Case Converter
   name_zh: 命名格式转换
   slug: case-converter
@@ -305,6 +337,7 @@
   desc: "Convert text between camelCase, PascalCase, snake_case, kebab-case and more."
   desc_zh: "在驼峰、帕斯卡、下划线、短横线等命名格式之间互转。"
   keywords: "case converter, camel case, snake case, kebab case, pascal case, name converter"
+
 
 - name: Word Counter
   name_zh: 字数统计
@@ -315,6 +348,7 @@
   desc_zh: "即时统计字数、字符数、句数、段落数与预计阅读时间。"
   keywords: "word counter, character count, word count tool, reading time, text stats"
 
+
 - name: URL Slug Generator
   name_zh: URL Slug 生成器
   slug: url-slug-generator
@@ -323,6 +357,7 @@
   desc: "Turn any title into a clean, SEO-friendly URL slug."
   desc_zh: "将任意标题转换为干净、SEO 友好的 URL 短链接。"
   keywords: "slug generator, url slug, seo slug, slugify, permalink generator"
+
 
 - name: Email Extractor
   name_zh: 邮箱地址提取
@@ -333,6 +368,7 @@
   desc_zh: "一键从文本中提取全部邮箱地址。"
   keywords: "email extractor, extract emails, email scraper, find emails"
 
+
 - name: Unit Converter
   name_zh: 单位换算
   slug: unit-converter
@@ -341,6 +377,7 @@
   desc: "Convert length, weight, temperature, area, volume, speed and data units."
   desc_zh: "长度、重量、温度、面积、体积、速度与数据单位互转。"
   keywords: "unit converter, length converter, weight converter, temperature converter, metric"
+
 
 - name: NanoID Generator
   name_zh: NanoID 生成器
@@ -351,6 +388,7 @@
   desc_zh: "生成紧凑、URL 安全的 NanoID 字符串，支持自定义字符集与长度。"
   keywords: "nanoid, nanoid generator, nano id, url safe id, id generator"
 
+
 - name: ULID Generator
   name_zh: ULID 生成器
   slug: ulid-generator
@@ -359,6 +397,7 @@
   desc: "Generate time-sortable ULIDs and parse any ULID back into its parts."
   desc_zh: "生成可排序的 ULID，并可解析 ULID 的各个组成部分。"
   keywords: "ulid, ulid generator, ulid parse, time sortable id, lexicographic id"
+
 
 - name: Lorem Ipsum Generator
   name_zh: Lorem Ipsum 生成器
@@ -369,6 +408,7 @@
   desc_zh: "按词、句或段落生成 Lorem Ipsum 占位文本。"
   keywords: "lorem ipsum, lorem ipsum generator, placeholder text, dummy text"
 
+
 - name: Password Strength Checker
   name_zh: 密码强度检测
   slug: password-strength
@@ -377,6 +417,7 @@
   desc: "Score password strength with entropy, time-to-crack and clear feedback."
   desc_zh: "以熵值、破解耗时与清晰反馈评估密码强度。"
   keywords: "password strength, password checker, password entropy, how secure is my password"
+
 
 - name: TOTP Authenticator
   name_zh: TOTP 动态口令
@@ -387,6 +428,7 @@
   desc_zh: "基于 Base32 密钥生成 6 位 TOTP 动态口令，兼容 RFC 6238。"
   keywords: "totp, authenticator, otp generator, 2fa, one time password, totp secret"
 
+
 - name: BMI Calculator
   name_zh: BMI 计算器
   slug: bmi-calculator
@@ -395,6 +437,7 @@
   desc: "Calculate Body Mass Index with WHO categories and ideal weight range."
   desc_zh: "计算身体质量指数（BMI），附 WHO 分类与理想体重范围。"
   keywords: "bmi calculator, body mass index, bmi chart, healthy weight, ideal weight"
+
 
 - name: Tip Calculator
   name_zh: 小费计算器
@@ -405,6 +448,7 @@
   desc_zh: "计算小费占比与每人分摊金额。"
   keywords: "tip calculator, tip percentage, split bill, gratuity calculator"
 
+
 - name: Date Difference
   name_zh: 日期差计算
   slug: date-difference
@@ -413,3 +457,113 @@
   desc: "Calculate the exact days, weeks, months and years between two dates."
   desc_zh: "精确计算两个日期之间的天数、周数、月数与年数。"
   keywords: "date difference, days between dates, date calculator, time between dates"
+
+
+- name: HTML Formatter
+  name_zh: HTML 格式化
+  slug: html-formatter
+  icon: "<>"
+  category: Formatters
+  desc: "Pretty-print or minify HTML while preserving script and style blocks."
+  desc_zh: "美化或压缩 HTML，保留 script 与 style 块内容。"
+  keywords: "html formatter, html pretty print, html beautifier, html minifier"
+
+
+- name: JavaScript Formatter
+  name_zh: JavaScript 格式化
+  slug: js-formatter
+  icon: "JS"
+  category: Formatters
+  desc: "Format or minify JavaScript/TypeScript code with smart indentation."
+  desc_zh: "格式化或压缩 JavaScript/TypeScript 代码，智能缩进。"
+  keywords: "js formatter, javascript beautifier, javascript minifier, code formatter"
+
+
+- name: SQL Formatter
+  name_zh: SQL 格式化
+  slug: sql-formatter
+  icon: "SQL"
+  category: Formatters
+  desc: "Beautify or minify SQL queries with keyword-aware indentation."
+  desc_zh: "美化或压缩 SQL 语句，按关键字智能缩进。"
+  keywords: "sql formatter, sql beautifier, sql minifier, format query"
+
+
+- name: XML ↔ JSON Converter
+  name_zh: XML / JSON 转换
+  slug: xml-json-converter
+  icon: "XJ"
+  category: Converters
+  desc: "Convert XML to JSON or JSON back to XML in one click."
+  desc_zh: "一键在 XML 与 JSON 之间互相转换。"
+  keywords: "xml to json, json to xml, xml json converter, convert xml"
+
+
+- name: ASCII Converter
+  name_zh: ASCII 转换
+  slug: ascii-converter
+  icon: "A0"
+  category: Converters
+  desc: "Convert text to decimal/hex/binary ASCII codes and back."
+  desc_zh: "文本与十进制、十六进制、二进制 ASCII 编码互转。"
+  keywords: "ascii converter, text to ascii, ascii to text, hex ascii, binary ascii"
+
+
+- name: Unicode Escape / Unescape
+  name_zh: Unicode 转义
+  slug: unicode-escape
+  icon: "U+"
+  category: Converters
+  desc: "Escape text into \\uXXXX sequences or decode them back."
+  desc_zh: "将文本转义为 \\uXXXX 序列，或将转义序列还原为文本。"
+  keywords: "unicode escape, unicode unescape, \\u escape, unicode converter"
+
+
+- name: Color Picker
+  name_zh: 颜色选择器
+  slug: color-picker
+  icon: "&#127912;"
+  category: Converters
+  desc: "Pick colors and convert instantly between HEX, RGB, HSL and HSV."
+  desc_zh: "取色并即时在 HEX、RGB、HSL、HSV 之间转换。"
+  keywords: "color picker, hex to rgb, rgb to hex, hsl converter, color converter"
+
+
+- name: Cron Expression Generator
+  name_zh: Cron 表达式生成
+  slug: cron-generator
+  icon: "&#9200;"
+  category: Generators
+  desc: "Build cron expressions visually with readable descriptions."
+  desc_zh: "可视化生成 cron 表达式，并附人类可读的描述。"
+  keywords: "cron generator, cron expression, cron tab, schedule generator, cron builder"
+
+
+- name: Image Compressor
+  name_zh: 图片压缩
+  slug: image-compressor
+  icon: "&#128426;"
+  category: Converters
+  desc: "Compress JPG, PNG or WEBP images locally with quality and size control."
+  desc_zh: "本地压缩 JPG、PNG 或 WEBP 图片，可调质量与尺寸。"
+  keywords: "image compressor, compress image, image optimizer, reduce image size, webp converter"
+
+
+- name: MIME Types Reference
+  name_zh: MIME 类型参考
+  slug: mime-types
+  icon: "&#128196;"
+  category: Reference
+  desc: "Search common file extensions and their MIME types by category."
+  desc_zh: "按分类检索常见文件扩展名对应的 MIME 类型。"
+  keywords: "mime types, mime type lookup, file extension, content type, media type"
+
+
+- name: Common Ports Reference
+  name_zh: 常用端口参考
+  slug: ports-reference
+  icon: "&#128421;"
+  category: Reference
+  desc: "Look up common TCP/UDP ports and the services that use them."
+  desc_zh: "查询常用 TCP/UDP 端口及其对应服务。"
+  keywords: "ports reference, common ports, tcp udp ports, port lookup, network ports"

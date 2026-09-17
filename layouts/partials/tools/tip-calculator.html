@@ -1,0 +1,101 @@
+{{- $zh := eq site.Language.Lang "zh-cn" }}
+<div class="mt-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/20 overflow-hidden transition-colors duration-200" id="tip-tool">
+  <div class="border-b border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">💵</span>
+      <span class="text-sm font-semibold text-slate-800 dark:text-zinc-200">{{ if $zh }}小费计算器{{ else }}Tip Calculator{{ end }}</span>
+      <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}交互工具{{ else }}Interactive Tool{{ end }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="tip-layout" type="button" title="{{ if $zh }}切换布局{{ else }}Toggle layout{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="tip-layout-stack" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14v6H5z M5 14h14v6H5z"/></svg>
+        <svg id="tip-layout-col" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h6v16H5z M13 4h6v16h-6z"/></svg>
+      </button>
+      <button id="tip-fullscreen" type="button" title="{{ if $zh }}切换全屏{{ else }}Toggle fullscreen{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="tip-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/></svg>
+        <svg id="tip-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4v4H4M16 4v4h4M8 20v-4H4M16 20v-4h4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="tip-panels" class="flex flex-col lg:flex-row lg:items-start">
+    <div id="tip-left" class="flex flex-col lg:flex-1 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-zinc-800">
+      <div class="px-4 sm:px-5 py-4 space-y-4">
+        <div>
+          <div class="mb-1.5 text-xs text-slate-600 dark:text-zinc-400">{{ if $zh }}账单金额{{ else }}Bill amount{{ end }}</div>
+          <input id="tip-bill" type="number" min="0" step="0.01" value="50.00" class="w-full rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
+        </div>
+        <div>
+          <div class="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400">
+            <span>{{ if $zh }}小费比例{{ else }}Tip {{ end }}</span>
+            <span id="tip-pct-val" class="font-mono">18%</span>
+          </div>
+          <input id="tip-pct" type="range" min="0" max="40" step="1" value="18" class="w-full accent-brand-500" />
+          <div class="mt-2 flex flex-wrap gap-1.5">
+            <button id="tip-p10" type="button" class="jt-mode">10%</button>
+            <button id="tip-p15" type="button" class="jt-mode">15%</button>
+            <button id="tip-p18" type="button" class="jt-mode active">18%</button>
+            <button id="tip-p20" type="button" class="jt-mode">20%</button>
+            <button id="tip-p25" type="button" class="jt-mode">25%</button>
+          </div>
+        </div>
+        <div>
+          <div class="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400">
+            <span>{{ if $zh }}人数{{ else }}People{{ end }}</span>
+            <input id="tip-people" type="number" min="1" max="100" value="1" class="w-20 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-right text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
+          </div>
+          <input id="tip-people-range" type="range" min="1" max="20" value="1" class="w-full accent-brand-500" />
+        </div>
+        <label class="flex items-center gap-1.5 text-xs text-slate-600 dark:text-zinc-400 cursor-pointer select-none">
+          <input id="tip-round" type="checkbox" class="accent-brand-500 w-3.5 h-3.5">
+          {{ if $zh }}每人金额向上取整到整数{{ else }}Round per-person up{{ end }}
+        </label>
+      </div>
+    </div>
+
+    <div id="tip-resizer" role="separator" aria-label="{{ if $zh }}拖动调整面板宽度{{ else }}Drag to resize panels{{ end }}" class="hidden lg:flex self-stretch group w-2.5 cursor-col-resize items-center justify-center transition-colors" style="touch-action:none;">
+      <span class="flex flex-col gap-1.5" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+      </span>
+    </div>
+
+    <div id="tip-right" class="flex flex-col lg:flex-[1.2] min-h-0">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}结果{{ else }}Result{{ end }}</span>
+        <button id="tip-copy" type="button" class="jt-icon-btn" title="{{ if $zh }}复制结果{{ else }}Copy result{{ end }}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </button>
+      </div>
+      <div id="tip-statusbar" class="px-4 sm:px-5 pt-2 text-xs flex flex-wrap items-center gap-x-3 gap-y-1 min-h-6">
+        <span id="tip-status" class="text-slate-400 dark:text-zinc-500"></span>
+      </div>
+      <div id="tip-output" class="flex-1 overflow-auto p-4 sm:p-5 space-y-3" style="min-height:320px;">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded-xl border border-slate-100 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-900/80 p-4 text-center">
+            <div id="tip-amt" class="text-2xl font-bold text-slate-800 dark:text-zinc-100">$0.00</div>
+            <div class="mt-1 text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}小费金额{{ else }}Tip amount{{ end }}</div>
+          </div>
+          <div class="rounded-xl border border-slate-100 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-900/80 p-4 text-center">
+            <div id="tip-total" class="text-2xl font-bold text-slate-800 dark:text-zinc-100">$0.00</div>
+            <div class="mt-1 text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}总额{{ else }}Total{{ end }}</div>
+          </div>
+          <div class="rounded-xl border border-brand-100 dark:border-brand-500/20 bg-brand-50/60 dark:bg-brand-500/10 p-4 text-center">
+            <div id="tip-each" class="text-2xl font-bold text-brand-600 dark:text-brand-400">$0.00</div>
+            <div class="mt-1 text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}每人应付{{ else }}Per person{{ end }}</div>
+          </div>
+          <div class="rounded-xl border border-slate-100 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-900/80 p-4 text-center">
+            <div id="tip-each-tip" class="text-2xl font-bold text-slate-800 dark:text-zinc-100">$0.00</div>
+            <div class="mt-1 text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}每人小费{{ else }}Tip per person{{ end }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/tip-calculator.js?v=1" defer></script>

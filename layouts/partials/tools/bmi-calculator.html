@@ -1,0 +1,93 @@
+{{- $zh := eq site.Language.Lang "zh-cn" }}
+<div class="mt-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/20 overflow-hidden transition-colors duration-200" id="bmi-tool">
+  <div class="border-b border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">BMI</span>
+      <span class="text-sm font-semibold text-slate-800 dark:text-zinc-200">{{ if $zh }}BMI 计算器{{ else }}BMI Calculator{{ end }}</span>
+      <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}交互工具{{ else }}Interactive Tool{{ end }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="bmi-layout" type="button" title="{{ if $zh }}切换布局{{ else }}Toggle layout{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="bmi-layout-stack" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14v6H5z M5 14h14v6H5z"/></svg>
+        <svg id="bmi-layout-col" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h6v16H5z M13 4h6v16h-6z"/></svg>
+      </button>
+      <button id="bmi-fullscreen" type="button" title="{{ if $zh }}切换全屏{{ else }}Toggle fullscreen{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="bmi-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/></svg>
+        <svg id="bmi-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4v4H4M16 4v4h4M8 20v-4H4M16 20v-4h4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="bmi-panels" class="flex flex-col lg:flex-row lg:items-start">
+    <div id="bmi-left" class="flex flex-col lg:flex-1 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-zinc-800">
+      <div class="px-4 sm:px-5 py-4 space-y-4">
+        <div>
+          <div class="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400">
+            <span>{{ if $zh }}身高{{ else }}Height{{ end }}</span>
+            <input id="bmi-height" type="number" min="80" max="250" step="0.1" value="175" class="w-24 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-right text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
+          </div>
+          <input id="bmi-height-range" type="range" min="120" max="220" step="0.5" value="175" class="w-full accent-brand-500" />
+        </div>
+        <div>
+          <div class="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400">
+            <span>{{ if $zh }}体重{{ else }}Weight{{ end }}</span>
+            <input id="bmi-weight" type="number" min="30" max="300" step="0.1" value="70" class="w-24 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-right text-sm text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
+          </div>
+          <input id="bmi-weight-range" type="range" min="30" max="200" step="0.5" value="70" class="w-full accent-brand-500" />
+        </div>
+        <label class="flex items-center gap-1.5 text-xs text-slate-600 dark:text-zinc-400 cursor-pointer select-none">
+          <input id="bmi-metric" type="checkbox" checked class="accent-brand-500 w-3.5 h-3.5">
+          {{ if $zh }}使用公制（cm / kg）{{ else }}Metric (cm / kg){{ end }}
+        </label>
+      </div>
+    </div>
+
+    <div id="bmi-resizer" role="separator" aria-label="{{ if $zh }}拖动调整面板宽度{{ else }}Drag to resize panels{{ end }}" class="hidden lg:flex self-stretch group w-2.5 cursor-col-resize items-center justify-center transition-colors" style="touch-action:none;">
+      <span class="flex flex-col gap-1.5" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+      </span>
+    </div>
+
+    <div id="bmi-right" class="flex flex-col lg:flex-[1.2] min-h-0">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}结果{{ else }}Result{{ end }}</span>
+      </div>
+      <div id="bmi-statusbar" class="px-4 sm:px-5 pt-2 text-xs flex flex-wrap items-center gap-x-3 gap-y-1 min-h-6">
+        <span id="bmi-status" class="text-slate-400 dark:text-zinc-500"></span>
+      </div>
+      <div id="bmi-output" class="flex-1 overflow-auto p-4 sm:p-5 space-y-4" style="min-height:320px;">
+        <div class="text-center">
+          <div id="bmi-value" class="text-5xl font-bold text-slate-800 dark:text-zinc-100">—</div>
+          <div id="bmi-label" class="mt-1 text-sm font-medium text-slate-500 dark:text-zinc-400">{{ if $zh }}等待输入…{{ else }}Waiting for input...{{ end }}</div>
+        </div>
+        <div id="bmi-scale" class="h-3 rounded-full overflow-hidden flex">
+          <div class="flex-1 bg-sky-400/80" title="<18.5"></div>
+          <div class="flex-1 bg-emerald-400/80" title="18.5–24.9"></div>
+          <div class="flex-1 bg-amber-400/80" title="25–29.9"></div>
+          <div class="flex-1 bg-orange-400/80" title="30–34.9"></div>
+          <div class="flex-1 bg-red-400/80" title="≥35"></div>
+        </div>
+        <div id="bmi-marker-wrap" class="relative h-2">
+          <div id="bmi-marker" class="absolute -top-1 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-white dark:border-zinc-900 bg-slate-800 dark:bg-zinc-200 shadow" style="left:0%;display:none;"></div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded-xl border border-slate-100 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-900/80 p-4 text-center">
+            <div id="bmi-ideal" class="text-lg font-bold text-slate-800 dark:text-zinc-100">—</div>
+            <div class="mt-1 text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}理想体重（WHO）{{ else }}Ideal weight (WHO){{ end }}</div>
+          </div>
+          <div class="rounded-xl border border-slate-100 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-900/80 p-4 text-center">
+            <div id="bmi-prim" class="text-lg font-bold text-slate-800 dark:text-zinc-100">—</div>
+            <div class="mt-1 text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}正常范围{{ else }}Normal range{{ end }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/bmi-calculator.js?v=1" defer></script>

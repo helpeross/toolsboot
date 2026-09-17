@@ -1,0 +1,77 @@
+{{- $zh := eq site.Language.Lang "zh-cn" }}
+<div class="mt-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/20 overflow-hidden transition-colors duration-200" id="uconv-tool">
+  <div class="border-b border-slate-100 dark:border-zinc-800 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">≈</span>
+      <span class="text-sm font-semibold text-slate-800 dark:text-zinc-200">{{ if $zh }}单位换算器{{ else }}Unit Converter{{ end }}</span>
+      <span class="text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}交互工具{{ else }}Interactive Tool{{ end }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="uconv-layout" type="button" title="{{ if $zh }}切换布局{{ else }}Toggle layout{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="uconv-layout-stack" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14v6H5z M5 14h14v6H5z"/></svg>
+        <svg id="uconv-layout-col" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h6v16H5z M13 4h6v16h-6z"/></svg>
+      </button>
+      <button id="uconv-fullscreen" type="button" title="{{ if $zh }}切换全屏{{ else }}Toggle fullscreen{{ end }}"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-brand-400 px-3 py-1.5 rounded-lg transition-colors">
+        <svg id="uconv-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/></svg>
+        <svg id="uconv-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4v4H4M16 4v4h4M8 20v-4H4M16 20v-4h4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="uconv-panels" class="flex flex-col lg:flex-row lg:items-start">
+    <div id="uconv-left" class="flex flex-col lg:flex-1 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-zinc-800">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}类别{{ else }}Category{{ end }}</span>
+        <select id="uconv-cat" class="rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1.5 text-xs text-slate-600 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors">
+          <option value="length">{{ if $zh }}长度{{ else }}Length{{ end }}</option>
+          <option value="weight">{{ if $zh }}重量{{ else }}Weight{{ end }}</option>
+          <option value="temperature">{{ if $zh }}温度{{ else }}Temperature{{ end }}</option>
+          <option value="area">{{ if $zh }}面积{{ else }}Area{{ end }}</option>
+          <option value="volume">{{ if $zh }}体积{{ else }}Volume{{ end }}</option>
+          <option value="speed">{{ if $zh }}速度{{ else }}Speed{{ end }}</option>
+          <option value="data">{{ if $zh }}数据存储{{ else }}Data{{ end }}</option>
+        </select>
+      </div>
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-2">
+        <input id="uconv-value" type="number" step="any" placeholder="1" class="w-full rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-700 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
+      </div>
+      <div class="px-4 sm:px-5 pb-4 flex flex-wrap items-center gap-2">
+        <select id="uconv-from" class="flex-1 min-w-[120px] rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1.5 text-sm text-slate-600 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></select>
+        <span class="text-slate-400 dark:text-zinc-500">→</span>
+        <select id="uconv-to" class="flex-1 min-w-[120px] rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1.5 text-sm text-slate-600 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></select>
+      </div>
+    </div>
+
+    <div id="uconv-resizer" role="separator" aria-label="{{ if $zh }}拖动调整面板宽度{{ else }}Drag to resize panels{{ end }}" class="hidden lg:flex self-stretch group w-2.5 cursor-col-resize items-center justify-center transition-colors" style="touch-action:none;">
+      <span class="flex flex-col gap-1.5" aria-hidden="true">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-brand-500 dark:group-hover:bg-brand-400 transition-colors"></span>
+      </span>
+    </div>
+
+    <div id="uconv-right" class="flex flex-col lg:flex-[1.1] min-h-0">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">{{ if $zh }}结果{{ else }}Result{{ end }}</span>
+        <button id="uconv-copy" type="button" class="jt-icon-btn" title="{{ if $zh }}复制结果{{ else }}Copy result{{ end }}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </button>
+      </div>
+      <div id="uconv-statusbar" class="px-4 sm:px-5 pt-2 text-xs flex flex-wrap items-center gap-x-3 gap-y-1 min-h-6">
+        <span id="uconv-status" class="text-slate-400 dark:text-zinc-500"></span>
+      </div>
+      <div id="uconv-output" class="flex-1 overflow-auto p-4 sm:p-5">
+        <div class="rounded-xl border border-slate-100 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-900/80 p-5 text-center">
+          <div id="uconv-result" class="text-3xl font-bold text-slate-800 dark:text-zinc-100 break-all">—</div>
+          <div class="mt-1 text-xs text-slate-400 dark:text-zinc-500">{{ if $zh }}换算结果{{ else }}Conversion result{{ end }}</div>
+        </div>
+        <div id="uconv-table" class="mt-4 space-y-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/unit-converter.js?v=1" defer></script>

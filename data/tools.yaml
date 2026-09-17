@@ -233,3 +233,183 @@
   category: Reference
   desc: "Preview and download any website's favicon in multiple sizes."
   desc_zh: "预览并下载任意网站的图标，支持多种尺寸。"
+
+- name: Base32 Encoder / Decoder
+  name_zh: Base32 编码/解码
+  slug: base32-encoder
+  icon: "B32"
+  category: Encoders
+  desc: "Encode and decode text to and from Base32, the case-insensitive base encoding."
+  desc_zh: "在文本与 Base32 之间互转，大小写不敏感的基础编码。"
+  keywords: "base32 encoder, base32 decoder, base32 encode, base32 online"
+
+- name: Base58 Encoder / Decoder
+  name_zh: Base58 编码/解码
+  slug: base58-encoder
+  icon: "B58"
+  category: Encoders
+  desc: "Encode and decode Base58, the Bitcoin-style alphabet without 0, O, I and l."
+  desc_zh: "Base58 编解码，使用去除 0、O、I、l 的比特币风格字母表。"
+  keywords: "base58 encoder, base58 decoder, base58 bitcoin, base58 encode"
+
+- name: ROT13 / ROT5 / ROT18
+  name_zh: ROT13/ROT5/ROT18 加解密
+  slug: rot13
+  icon: "ROT"
+  category: Encoders
+  desc: "Shift letters (ROT13) and digits (ROT5) or both (ROT18) to obfuscate text."
+  desc_zh: "对字母（ROT13）和数字（ROT5）或两者（ROT18）做位移混淆。"
+  keywords: "rot13, rot5, rot18, caesar cipher, rot encoder"
+
+- name: AES Encrypt / Decrypt
+  name_zh: AES 加密/解密
+  slug: aes-encrypt
+  icon: "AES"
+  category: Encoders
+  desc: "Encrypt and decrypt text with AES-256 in CBC or GCM mode using a passphrase."
+  desc_zh: "使用口令以 AES-256 CBC 或 GCM 模式对文本加解密。"
+  keywords: "aes encrypt, aes decrypt, aes-256, aes cbc, aes gcm, encryption tool"
+
+- name: JSON to TypeScript
+  name_zh: JSON 转 TypeScript 类型
+  slug: json-to-typescript
+  icon: "TS"
+  category: Converters
+  desc: "Generate TypeScript interfaces and type aliases from a JSON sample."
+  desc_zh: "根据 JSON 示例生成 TypeScript 接口与类型别名。"
+  keywords: "json to typescript, json to ts, typescript interface generator, json types"
+
+- name: JSON to C# Class
+  name_zh: JSON 转 C# 实体类
+  slug: json-to-csharp
+  icon: "C#"
+  category: Converters
+  desc: "Generate C# entity classes with properties and attributes from JSON."
+  desc_zh: "根据 JSON 生成带属性与特性的 C# 实体类。"
+  keywords: "json to c#, json to csharp, c# class generator, json to entity"
+
+- name: cURL to Python / JS
+  name_zh: cURL 转 Python/JS
+  slug: curl-to-python
+  icon: "cURL"
+  category: Converters
+  desc: "Convert a cURL command into Python requests or JavaScript fetch code."
+  desc_zh: "把 cURL 命令转换为 Python requests 或 JavaScript fetch 代码。"
+  keywords: "curl to python, curl to requests, curl to javascript, curl to fetch, curl converter"
+
+- name: Case Converter
+  name_zh: 命名格式转换
+  slug: case-converter
+  icon: "aA"
+  category: Converters
+  desc: "Convert text between camelCase, PascalCase, snake_case, kebab-case and more."
+  desc_zh: "在驼峰、帕斯卡、下划线、短横线等命名格式之间互转。"
+  keywords: "case converter, camel case, snake case, kebab case, pascal case, name converter"
+
+- name: Word Counter
+  name_zh: 字数统计
+  slug: word-counter
+  icon: "Wc"
+  category: Converters
+  desc: "Count words, characters, sentences, paragraphs and reading time instantly."
+  desc_zh: "即时统计字数、字符数、句数、段落数与预计阅读时间。"
+  keywords: "word counter, character count, word count tool, reading time, text stats"
+
+- name: URL Slug Generator
+  name_zh: URL Slug 生成器
+  slug: url-slug-generator
+  icon: "&#47;"
+  category: Converters
+  desc: "Turn any title into a clean, SEO-friendly URL slug."
+  desc_zh: "将任意标题转换为干净、SEO 友好的 URL 短链接。"
+  keywords: "slug generator, url slug, seo slug, slugify, permalink generator"
+
+- name: Email Extractor
+  name_zh: 邮箱地址提取
+  slug: email-extractor
+  icon: "@"
+  category: Converters
+  desc: "Extract every email address from a block of text with one click."
+  desc_zh: "一键从文本中提取全部邮箱地址。"
+  keywords: "email extractor, extract emails, email scraper, find emails"
+
+- name: Unit Converter
+  name_zh: 单位换算
+  slug: unit-converter
+  icon: "&#13221;"
+  category: Converters
+  desc: "Convert length, weight, temperature, area, volume, speed and data units."
+  desc_zh: "长度、重量、温度、面积、体积、速度与数据单位互转。"
+  keywords: "unit converter, length converter, weight converter, temperature converter, metric"
+
+- name: NanoID Generator
+  name_zh: NanoID 生成器
+  slug: nanoid-generator
+  icon: "nano"
+  category: Generators
+  desc: "Generate compact, URL-safe NanoID strings with custom alphabet and length."
+  desc_zh: "生成紧凑、URL 安全的 NanoID 字符串，支持自定义字符集与长度。"
+  keywords: "nanoid, nanoid generator, nano id, url safe id, id generator"
+
+- name: ULID Generator
+  name_zh: ULID 生成器
+  slug: ulid-generator
+  icon: "UL"
+  category: Generators
+  desc: "Generate time-sortable ULIDs and parse any ULID back into its parts."
+  desc_zh: "生成可排序的 ULID，并可解析 ULID 的各个组成部分。"
+  keywords: "ulid, ulid generator, ulid parse, time sortable id, lexicographic id"
+
+- name: Lorem Ipsum Generator
+  name_zh: Lorem Ipsum 生成器
+  slug: lorem-ipsum
+  icon: "L&#105;&#112;"
+  category: Generators
+  desc: "Generate lorem ipsum placeholder text by words, sentences or paragraphs."
+  desc_zh: "按词、句或段落生成 Lorem Ipsum 占位文本。"
+  keywords: "lorem ipsum, lorem ipsum generator, placeholder text, dummy text"
+
+- name: Password Strength Checker
+  name_zh: 密码强度检测
+  slug: password-strength
+  icon: "&#128274;"
+  category: Generators
+  desc: "Score password strength with entropy, time-to-crack and clear feedback."
+  desc_zh: "以熵值、破解耗时与清晰反馈评估密码强度。"
+  keywords: "password strength, password checker, password entropy, how secure is my password"
+
+- name: TOTP Authenticator
+  name_zh: TOTP 动态口令
+  slug: totp-generator
+  icon: "TOTP"
+  category: Generators
+  desc: "Generate 6-digit TOTP codes from a Base32 secret, RFC 6238 compatible."
+  desc_zh: "基于 Base32 密钥生成 6 位 TOTP 动态口令，兼容 RFC 6238。"
+  keywords: "totp, authenticator, otp generator, 2fa, one time password, totp secret"
+
+- name: BMI Calculator
+  name_zh: BMI 计算器
+  slug: bmi-calculator
+  icon: "&#129485;"
+  category: Reference
+  desc: "Calculate Body Mass Index with WHO categories and ideal weight range."
+  desc_zh: "计算身体质量指数（BMI），附 WHO 分类与理想体重范围。"
+  keywords: "bmi calculator, body mass index, bmi chart, healthy weight, ideal weight"
+
+- name: Tip Calculator
+  name_zh: 小费计算器
+  slug: tip-calculator
+  icon: "&#128176;"
+  category: Reference
+  desc: "Split a bill and calculate tip percentages with per-person amounts."
+  desc_zh: "计算小费占比与每人分摊金额。"
+  keywords: "tip calculator, tip percentage, split bill, gratuity calculator"
+
+- name: Date Difference
+  name_zh: 日期差计算
+  slug: date-difference
+  icon: "&#128197;"
+  category: Reference
+  desc: "Calculate the exact days, weeks, months and years between two dates."
+  desc_zh: "精确计算两个日期之间的天数、周数、月数与年数。"
+  keywords: "date difference, days between dates, date calculator, time between dates"

@@ -101,7 +101,7 @@
   name_zh: 语言加密
   slug: language-cipher
   icon: "Aa"
-  category: Encoders
+  category: Crypto
   desc: "Encrypt text into Chinese, English letters or other scripts, with an optional secret key."
   desc_zh: "将文本加密为汉字、英文字母或其他文字，可设置密钥。"
 
@@ -119,7 +119,7 @@
   name_zh: 文本对比
   slug: text-diff
   icon: "A|B"
-  category: Formatters
+  category: TextTools
   desc: "Compare two texts side by side and spot added, removed and changed lines instantly."
   desc_zh: "并排比较两段文本，快速找出新增、删除与修改的行。"
 
@@ -128,7 +128,7 @@
   name_zh: 二维码生成器
   slug: qrcode-generator
   icon: "QR"
-  category: Generators
+  category: ImageTools
   desc: "Turn any text or URL into a QR code with custom size, colors and error correction."
   desc_zh: "将任意文本或网址生成二维码，支持自定义尺寸、颜色与容错级别。"
 
@@ -137,7 +137,7 @@
   name_zh: 二维码扫描器
   slug: qrcode-scanner
   icon: "SC"
-  category: Scanners
+  category: ImageTools
   desc: "Decode QR codes from images - paste, drag & drop or select multiple pictures."
   desc_zh: "从图片中解码二维码——支持粘贴、拖放或选择多张图片。"
 
@@ -146,7 +146,7 @@
   name_zh: JWT 编解码
   slug: jwt-decoder
   icon: "JWT"
-  category: Encoders
+  category: Crypto
   desc: "Decode JWT headers and payloads, and verify HS256/384/512 signatures locally."
   desc_zh: "本地解码 JWT 头部与载荷，并校验 HS256/384/512 签名。"
 
@@ -164,7 +164,7 @@
   name_zh: RSA 加密/解密
   slug: rsa-encrypt
   icon: "RSA"
-  category: Encoders
+  category: Crypto
   desc: "Generate RSA key pairs and encrypt or decrypt messages with OAEP padding."
   desc_zh: "生成 RSA 密钥对，使用 OAEP 填充加密或解密消息。"
 
@@ -173,7 +173,7 @@
   name_zh: 颜色转换器
   slug: color-converter
   icon: "RGB"
-  category: Converters
+  category: ImageTools
   desc: "Convert colors between HEX, RGB and HSL with a live preview swatch."
   desc_zh: "在 HEX、RGB 与 HSL 之间转换颜色，带实时预览色块。"
 
@@ -209,7 +209,7 @@
   name_zh: Cron 表达式解析
   slug: cron-parser
   icon: "&#42;&#47;"
-  category: Formatters
+  category: Reference
   desc: "Parse 5/6-field cron expressions and preview upcoming run times."
   desc_zh: "解析 5/6 段 Cron 表达式，预览未来触发时间。"
 
@@ -218,7 +218,7 @@
   name_zh: 占位图片生成器
   slug: placeholder-image
   icon: "&#9638;"
-  category: Generators
+  category: ImageTools
   desc: "Create placeholder images with custom size, colors and text as PNG or SVG."
   desc_zh: "生成自定义尺寸、颜色与文字的占位图片，支持 PNG 或 SVG。"
 
@@ -293,7 +293,7 @@
   name_zh: AES 加密/解密
   slug: aes-encrypt
   icon: "AES"
-  category: Encoders
+  category: Crypto
   desc: "Encrypt and decrypt text with AES-256 in CBC or GCM mode using a passphrase."
   desc_zh: "使用口令以 AES-256 CBC 或 GCM 模式对文本加解密。"
   keywords: "aes encrypt, aes decrypt, aes-256, aes cbc, aes gcm, encryption tool"
@@ -333,7 +333,7 @@
   name_zh: 命名格式转换
   slug: case-converter
   icon: "aA"
-  category: Converters
+  category: TextTools
   desc: "Convert text between camelCase, PascalCase, snake_case, kebab-case and more."
   desc_zh: "在驼峰、帕斯卡、下划线、短横线等命名格式之间互转。"
   keywords: "case converter, camel case, snake case, kebab case, pascal case, name converter"
@@ -343,7 +343,7 @@
   name_zh: 字数统计
   slug: word-counter
   icon: "Wc"
-  category: Converters
+  category: TextTools
   desc: "Count words, characters, sentences, paragraphs and reading time instantly."
   desc_zh: "即时统计字数、字符数、句数、段落数与预计阅读时间。"
   keywords: "word counter, character count, word count tool, reading time, text stats"
@@ -353,7 +353,7 @@
   name_zh: URL Slug 生成器
   slug: url-slug-generator
   icon: "&#47;"
-  category: Converters
+  category: TextTools
   desc: "Turn any title into a clean, SEO-friendly URL slug."
   desc_zh: "将任意标题转换为干净、SEO 友好的 URL 短链接。"
   keywords: "slug generator, url slug, seo slug, slugify, permalink generator"
@@ -363,7 +363,7 @@
   name_zh: 邮箱地址提取
   slug: email-extractor
   icon: "@"
-  category: Converters
+  category: TextTools
   desc: "Extract every email address from a block of text with one click."
   desc_zh: "一键从文本中提取全部邮箱地址。"
   keywords: "email extractor, extract emails, email scraper, find emails"
@@ -373,7 +373,7 @@
   name_zh: 单位换算
   slug: unit-converter
   icon: "&#13221;"
-  category: Converters
+  category: Calculators
   desc: "Convert length, weight, temperature, area, volume, speed and data units."
   desc_zh: "长度、重量、温度、面积、体积、速度与数据单位互转。"
   keywords: "unit converter, length converter, weight converter, temperature converter, metric"
@@ -413,7 +413,7 @@
   name_zh: 密码强度检测
   slug: password-strength
   icon: "&#128274;"
-  category: Generators
+  category: TextTools
   desc: "Score password strength with entropy, time-to-crack and clear feedback."
   desc_zh: "以熵值、破解耗时与清晰反馈评估密码强度。"
   keywords: "password strength, password checker, password entropy, how secure is my password"
@@ -433,7 +433,7 @@
   name_zh: BMI 计算器
   slug: bmi-calculator
   icon: "&#129485;"
-  category: Reference
+  category: Calculators
   desc: "Calculate Body Mass Index with WHO categories and ideal weight range."
   desc_zh: "计算身体质量指数（BMI），附 WHO 分类与理想体重范围。"
   keywords: "bmi calculator, body mass index, bmi chart, healthy weight, ideal weight"
@@ -443,7 +443,7 @@
   name_zh: 小费计算器
   slug: tip-calculator
   icon: "&#128176;"
-  category: Reference
+  category: Calculators
   desc: "Split a bill and calculate tip percentages with per-person amounts."
   desc_zh: "计算小费占比与每人分摊金额。"
   keywords: "tip calculator, tip percentage, split bill, gratuity calculator"
@@ -453,7 +453,7 @@
   name_zh: 日期差计算
   slug: date-difference
   icon: "&#128197;"
-  category: Reference
+  category: Calculators
   desc: "Calculate the exact days, weeks, months and years between two dates."
   desc_zh: "精确计算两个日期之间的天数、周数、月数与年数。"
   keywords: "date difference, days between dates, date calculator, time between dates"
@@ -503,7 +503,7 @@
   name_zh: ASCII 转换
   slug: ascii-converter
   icon: "A0"
-  category: Converters
+  category: Encoders
   desc: "Convert text to decimal/hex/binary ASCII codes and back."
   desc_zh: "文本与十进制、十六进制、二进制 ASCII 编码互转。"
   keywords: "ascii converter, text to ascii, ascii to text, hex ascii, binary ascii"
@@ -513,7 +513,7 @@
   name_zh: Unicode 转义
   slug: unicode-escape
   icon: "U+"
-  category: Converters
+  category: Encoders
   desc: "Escape text into \\uXXXX sequences or decode them back."
   desc_zh: "将文本转义为 \\uXXXX 序列，或将转义序列还原为文本。"
   keywords: "unicode escape, unicode unescape, \\u escape, unicode converter"
@@ -523,7 +523,7 @@
   name_zh: 颜色选择器
   slug: color-picker
   icon: "&#127912;"
-  category: Converters
+  category: ImageTools
   desc: "Pick colors and convert instantly between HEX, RGB, HSL and HSV."
   desc_zh: "取色并即时在 HEX、RGB、HSL、HSV 之间转换。"
   keywords: "color picker, hex to rgb, rgb to hex, hsl converter, color converter"
@@ -543,7 +543,7 @@
   name_zh: 图片压缩
   slug: image-compressor
   icon: "&#128426;"
-  category: Converters
+  category: ImageTools
   desc: "Compress JPG, PNG or WEBP images locally with quality and size control."
   desc_zh: "本地压缩 JPG、PNG 或 WEBP 图片，可调质量与尺寸。"
   keywords: "image compressor, compress image, image optimizer, reduce image size, webp converter"

@@ -1,4 +1,4 @@
-﻿<header class="bg-white border-b border-slate-200 dark:bg-zinc-900/95 dark:border-zinc-800 sticky top-0 z-30 shadow-sm dark:backdrop-blur-md transition-colors duration-200">
+<header class="bg-white border-b border-slate-200 dark:bg-zinc-900/95 dark:border-zinc-800 sticky top-0 z-30 shadow-sm dark:backdrop-blur-md transition-colors duration-200">
   <!-- Row 1: Logo + Nav -->
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main">
     <a href="{{ "" | relLangURL }}" class="flex items-center gap-2 font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
@@ -82,11 +82,11 @@
     {{- end }}
     {{- range $cats2 | uniq }}
     '{{ . }}': {
-      name: {{ (i18n (printf "cat_%s" .)) | jsonify }},
-      desc: {{ (i18n (printf "cat_desc_%s" .)) | jsonify }}
+      name: {{ (i18n (printf "cat_%s" .)) | jsonify | safeJS }},
+      desc: {{ (i18n (printf "cat_desc_%s" .)) | jsonify | safeJS }}
     },
     {{- end }}
-    'All': { name: {{ (i18n "cat_all") | jsonify }}, desc: '' }
+    'All': { name: {{ (i18n "cat_all") | jsonify | safeJS }}, desc: '' }
   };
 
   function switchLang(ln) {

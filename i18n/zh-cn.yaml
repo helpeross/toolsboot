@@ -23,6 +23,8 @@ cat_desc_Encoders: "编码与解码 Base64、URL、HTML 实体和语言加密。
 cat_desc_Generators: "生成 UUID、哈希、密码和二维码。"
 cat_desc_Converters: "在时间戳、JSON/YAML 和数字进制之间转换。"
 cat_desc_Scanners: "从图片中扫描并解码二维码。"
+cat_Reference: "参考"
+cat_desc_Reference: "查询 HTTP 状态码、公共 DNS 服务器、各国首都与网站图标等参考信息。"
 
 hero_title: "开发者工具，直接在浏览器中使用"
 hero_sub: "ToolsBoot 是一个快速、注重隐私的免费在线开发者工具集合，面向日常开发者和技术写作者。一切都在你的浏览器本地运行——无服务器、无上传、无账号。JSON、URL、哈希等内容永不离开你的设备。"

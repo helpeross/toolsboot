@@ -42,13 +42,13 @@
   desc: "Compute MD5 hashes of text or hex strings instantly for quick checks."
   desc_zh: "快速计算文本或十六进制字符串的 MD5 哈希。"
 
-- name: SHA256 Hash Generator
-  name_zh: SHA256 哈希生成器
-  slug: sha256-generator
-  icon: "SHA"
+- name: Hash Generator (MD5/SHA-1/SHA-256/SHA-512)
+  name_zh: 哈希计算器
+  slug: hash-generator
+  icon: "H#"
   category: Generators
-  desc: "Generate SHA-256 hashes for integrity checks and simple fingerprints."
-  desc_zh: "生成 SHA-256 哈希，用于完整性校验与简单指纹。"
+  desc: "Compute MD5, SHA-1, SHA-256 or SHA-512 hashes of text or files instantly."
+  desc_zh: "即时计算文本或文件的 MD5、SHA-1、SHA-256 与 SHA-512 哈希。"
 
 - name: Random Password Generator
   name_zh: 随机密码生成器
@@ -129,3 +129,107 @@
   category: Scanners
   desc: "Decode QR codes from images - paste, drag & drop or select multiple pictures."
   desc_zh: "从图片中解码二维码——支持粘贴、拖放或选择多张图片。"
+
+- name: JWT Decoder / Encoder
+  name_zh: JWT 编解码
+  slug: jwt-decoder
+  icon: "JWT"
+  category: Encoders
+  desc: "Decode JWT headers and payloads, and verify HS256/384/512 signatures locally."
+  desc_zh: "本地解码 JWT 头部与载荷，并校验 HS256/384/512 签名。"
+
+- name: Morse Code Translator
+  name_zh: 摩斯电码
+  slug: morse-code
+  icon: "&#8226;&#8212;"
+  category: Encoders
+  desc: "Translate text to and from Morse code with letter, digit and punctuation support."
+  desc_zh: "在文本与摩斯电码之间互转，支持字母、数字与标点。"
+
+- name: RSA Encrypt / Decrypt
+  name_zh: RSA 加密/解密
+  slug: rsa-encrypt
+  icon: "RSA"
+  category: Encoders
+  desc: "Generate RSA key pairs and encrypt or decrypt messages with OAEP padding."
+  desc_zh: "生成 RSA 密钥对，使用 OAEP 填充加密或解密消息。"
+
+- name: Color Converter
+  name_zh: 颜色转换器
+  slug: color-converter
+  icon: "RGB"
+  category: Converters
+  desc: "Convert colors between HEX, RGB and HSL with a live preview swatch."
+  desc_zh: "在 HEX、RGB 与 HSL 之间转换颜色，带实时预览色块。"
+
+- name: URL Params to JSON
+  name_zh: URL 参数转 JSON
+  slug: url-params-to-json
+  icon: "?{}"
+  category: Converters
+  desc: "Convert URL query strings to JSON and back, including full URLs."
+  desc_zh: "在 URL 查询字符串与 JSON 之间互转，支持完整 URL。"
+
+- name: JSON to Go Struct
+  name_zh: JSON 转 Go 结构体
+  slug: json-to-go
+  icon: "Go"
+  category: Converters
+  desc: "Generate a typed Go struct from a JSON sample in one click."
+  desc_zh: "一键根据 JSON 示例生成带类型的 Go 结构体。"
+
+- name: XML Formatter
+  name_zh: XML 格式化
+  slug: xml-formatter
+  icon: "&lt;/&gt;"
+  category: Formatters
+  desc: "Pretty-print, minify or validate XML documents instantly."
+  desc_zh: "即时美化、压缩或校验 XML 文档。"
+
+- name: Cron Parser
+  name_zh: Cron 表达式解析
+  slug: cron-parser
+  icon: "&#42;&#47;"
+  category: Formatters
+  desc: "Parse 5/6-field cron expressions and preview upcoming run times."
+  desc_zh: "解析 5/6 段 Cron 表达式，预览未来触发时间。"
+
+- name: Placeholder Image Generator
+  name_zh: 占位图片生成器
+  slug: placeholder-image
+  icon: "&#9638;"
+  category: Generators
+  desc: "Create placeholder images with custom size, colors and text as PNG or SVG."
+  desc_zh: "生成自定义尺寸、颜色与文字的占位图片，支持 PNG 或 SVG。"
+
+- name: HTTP Status Codes
+  name_zh: HTTP 状态码查询
+  slug: http-status
+  icon: "200"
+  category: Reference
+  desc: "Browse and search HTTP status codes with RFC descriptions and use cases."
+  desc_zh: "浏览与搜索 HTTP 状态码，附 RFC 释义与使用场景。"
+
+- name: Public DNS Servers
+  name_zh: 公共 DNS 大全
+  slug: public-dns
+  icon: "DNS"
+  category: Reference
+  desc: "A quick reference of public DNS servers from Google, Cloudflare and more."
+  desc_zh: "Google、Cloudflare 等公共 DNS 服务器快速参考。"
+
+- name: World Capitals
+  name_zh: 各国首都
+  slug: capitals
+  icon: "&#127757;"
+  category: Reference
+  desc: "Look up the capital of any country, searchable by country or capital name."
+  desc_zh: "查询任意国家的首都，可按国家或首都名称搜索。"
+
+- name: Favicon Finder
+  name_zh: 网站图标获取
+  slug: favicon-finder
+  icon: "ico"
+  category: Reference
+  desc: "Preview and download any website's favicon in multiple sizes."
+  desc_zh: "预览并下载任意网站的图标，支持多种尺寸。"

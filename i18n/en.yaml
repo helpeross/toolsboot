@@ -23,6 +23,8 @@ cat_desc_Encoders: "Encode and decode Base64, URL, HTML entities and language ci
 cat_desc_Generators: "Generate UUIDs, hashes, passwords and QR codes."
 cat_desc_Converters: "Convert between timestamps, JSON and YAML, and number bases."
 cat_desc_Scanners: "Scan and decode QR codes from images."
+cat_Reference: "Reference"
+cat_desc_Reference: "Look up HTTP status codes, public DNS servers, world capitals and website favicons."
 
 hero_title: "Developer Tools, Directly in Your Browser"
 hero_sub: "ToolsBoot is a fast, privacy-friendly collection of free online developer tools for everyday developers and technical writers. Everything runs locally in your browser - no server, no upload, no account. JSON, URLs, hashes and more never leave your device."

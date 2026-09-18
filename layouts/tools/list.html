@@ -151,6 +151,14 @@
         });
         if (empty) empty.classList.toggle('hidden', shown !== 0);
       });
+
+      // Initialise from /tools/?q=keyword (routed here by the header search)
+      var qm = null;
+      try { qm = new URLSearchParams(location.search).get('q'); } catch (e) { qm = null; }
+      if (qm) {
+        search.value = qm;
+        search.dispatchEvent(new Event('input'));
+      }
     }
   })();
 </script>

@@ -195,11 +195,24 @@
       });
 
       if (search) {
+        // On tool detail pages there are no cards to filter, so route the
+        // query to the grouped tools list instead of doing nothing.
+        var isListPage = document.getElementById('tools-sidebar') !== null;
         search.addEventListener('input', function() {
+          if (!isListPage) {
+            var q = this.value.trim();
+            if (q) { window.location.href = TB_BASE + '?q=' + encodeURIComponent(q); }
+            return;
+          }
           FILTER.q = this.value.trim().toLowerCase();
           applyFilter();
         });
         search.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            var q = this.value.trim();
+            if (q && !isListPage) { window.location.href = TB_BASE + '?q=' + encodeURIComponent(q); }
+            return;
+          }
           if (e.key === 'Escape') { this.classList.add('hidden'); }
         });
       }

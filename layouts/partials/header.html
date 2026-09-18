@@ -28,7 +28,8 @@
       </button>
     </div>
   </nav>
-  <!-- Row 2: Category bar + search toggle -->
+  <!-- Row 2: Category bar + search toggle (hidden on the grouped tools list, which has its own sidebar) -->
+  {{- if not (and (eq .Kind "section") (eq .Section "tools")) }}
   <div class="border-t border-slate-100 dark:border-zinc-800/50 bg-slate-50/80 dark:bg-zinc-900/80 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-2">
       <div id="category-bar" class="flex-1 flex items-center gap-1 overflow-x-auto scrollbar-hide py-2 text-sm whitespace-nowrap">
@@ -51,6 +52,7 @@
       </div>
     </div>
   </div>
+  {{- end }}
 </header>
 
 <style>
@@ -127,6 +129,7 @@
 
   // Category filtering + tool search (shared state machine)
   (function() {
+    if (!document.getElementById('category-bar')) return; // grouped tools list has its own sidebar
     var ORIG_TITLE = null;
     var ORIG_DESC = null;
     var FILTER = { cat: 'All', q: '' };
